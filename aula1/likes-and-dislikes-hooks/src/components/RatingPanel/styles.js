@@ -1,10 +1,12 @@
-.counter {
+import styled from 'styled-components'
+
+export const Counter = styled.p`
     font-size: 45px;
     margin: 0;
     margin-top: 5px;
-}
+`
 
-.ratingsContainer{
+export const RatingsContainer  = styled.div`
     padding: 5px 40px 20px 40px;
     border: 1px solid #424242;
     border-radius: 5px;
@@ -24,4 +26,4 @@
     & + &{
         margin-left: 30px;
     }
-}
+`

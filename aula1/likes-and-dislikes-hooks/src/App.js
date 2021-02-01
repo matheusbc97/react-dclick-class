@@ -1,16 +1,16 @@
 import RatingPanel from './components/RatingPanel'
 import useAdd from './hooks/useAdd'
 
-import styles from './App.module.scss'
+import {Container, Content, Title} from './styles'
 
 const App = () => {
   const [likes, changeLikes] = useAdd(1)
   const [dislikes, changeDislikes] = useAdd(-1)
 
   return (
-    <div className={styles.container}>
-      <p className={styles.title}>Avaliações</p>
-      <div className={styles.content}>
+    <Container>
+      <Title>Avaliações</Title>
+      <Content>
         <RatingPanel 
           onClick={changeDislikes} 
           label="Negativas" 
@@ -23,8 +23,8 @@ const App = () => {
           value={likes} 
           type="like"
         />
-      </div>
-    </div>
+      </Content>
+    </Container>
   )
 }
 
