@@ -1,7 +1,7 @@
 import React from 'react'
 import {FaThumbsUp, FaThumbsDown} from 'react-icons/fa'
 
-import styles from './RatingPanel.module.css'
+import styles from './RatingPanel.module.scss'
 
 export default function RatingPanel({ label="", value=0, onClick, type }) {
     return (
