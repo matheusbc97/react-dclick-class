@@ -5,17 +5,31 @@ import React, { Component } from 'react'
 export default class App extends Component {
   constructor(){
     super();
-    this.state = 10;
+    this.state = {
+      counter: 10
+    };
+  }
+
+  add(){
+    this.setState({
+      counter: this.state.counter + 1
+    })
+  }
+
+  subtract(){
+    this.setState({
+      counter: this.state.counter - 1
+    })
   }
 
   render() {
     return (
       <div className="counter-container">
         <p className="title">Contador</p>
-        <p className="counter">{this.state}</p>
+        <p className="counter">{this.state.counter}</p>
         <div className="buttons-container">
-          <button>Remover</button>
-          <button>Adicionar</button>
+          <button onClick={()=>this.subtract()}>Remover</button>
+          <button onClick={()=>this.add()}>Adicionar</button>
         </div>
       </div>
     )
