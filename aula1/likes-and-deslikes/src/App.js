@@ -1,4 +1,4 @@
-import './App.css';
+import styles from './App.module.css'
 
 import React, { Component } from 'react'
 
@@ -31,9 +31,9 @@ export default class App extends Component {
   render() {
     const { likes, dislikes } = this.state;
     return (
-      <div className="container">
-        <p className="title">Avaliações</p>
-        <div className="content">
+      <div className={styles.container}>
+        <p className={styles.title}>Avaliações</p>
+        <div className={styles.content}>
           <RatingPanel 
             onClick={()=> this.dislike()} 
             label="Negativas" 
