@@ -10,7 +10,7 @@ export default class App extends Component {
     };
   }
 
-  //Nunca altere um valor no state do componente, toda a alteração deverá ser feita pelo setState 
+  //Nunca incremente ou altere um valor no state do componente, toda a alteração deverá ser feita pelo setState 
   add(){
     const { counter } = this.state;
     this.setState({
