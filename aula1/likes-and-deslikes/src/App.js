@@ -30,16 +30,23 @@ export default class App extends Component {
   render() {
     const { counter } = this.state;
     return (
-      <div className="counter-container">
-        <p className="title">Contador</p>
-        <p className="counter">{counter}</p>
-        <div className="buttons-container">
-          <button onClick={()=>this.subtract()}>
-            <FaThumbsDown size={40}/>
-          </button>
-          <button onClick={()=>this.add()}>
-            <FaThumbsUp size={40} />
-          </button>
+      <div className="container">
+        <p className="title">Avaliações</p>
+        <div className="content">
+          <div className="ratings-container">
+            <p>Positivas</p>
+            <p className="counter">{counter}</p>
+            <button onClick={()=>this.subtract()}>
+              <FaThumbsDown size={40}/>
+            </button>
+          </div>
+          <div className="ratings-container">
+            <p>Negativos</p>
+            <p className="counter">{counter}</p>
+            <button onClick={()=>this.add()}> 
+              <FaThumbsUp size={40} />
+            </button>
+          </div>
         </div>
       </div>
     )
