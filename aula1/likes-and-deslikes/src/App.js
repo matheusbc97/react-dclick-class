@@ -1,6 +1,8 @@
 import './App.css';
 
 import React, { Component } from 'react'
+import {FaThumbsUp, FaThumbsDown} from 'react-icons/fa'
+
 
 export default class App extends Component {
   constructor(){
@@ -32,8 +34,12 @@ export default class App extends Component {
         <p className="title">Contador</p>
         <p className="counter">{counter}</p>
         <div className="buttons-container">
-          <button onClick={()=>this.subtract()}>Remover</button>
-          <button onClick={()=>this.add()}>Adicionar</button>
+          <button onClick={()=>this.subtract()}>
+            <FaThumbsDown size={40}/>
+          </button>
+          <button onClick={()=>this.add()}>
+            <FaThumbsUp size={40} />
+          </button>
         </div>
       </div>
     )
