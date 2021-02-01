@@ -1,8 +1,8 @@
 import './App.css';
 
 import React, { Component } from 'react'
-import {FaThumbsUp, FaThumbsDown} from 'react-icons/fa'
 
+import RatingPanel from './components/RatingPanel'
 
 export default class App extends Component {
   constructor(){
@@ -34,20 +34,18 @@ export default class App extends Component {
       <div className="container">
         <p className="title">Avaliações</p>
         <div className="content">
-          <div className="ratings-container">
-            <p>Negativos</p>
-            <p className="counter">{dislikes}</p>
-            <button onClick={()=>this.dislike()}>
-              <FaThumbsDown size={40}/>
-            </button>
-          </div>
-          <div className="ratings-container">
-            <p>Positivas</p>
-            <p className="counter">{likes}</p>
-            <button onClick={()=>this.like()}> 
-              <FaThumbsUp size={40} />
-            </button>
-          </div>
+          <RatingPanel 
+            onClick={()=> this.dislike()} 
+            label="Negativas" 
+            value={dislikes} 
+            type="dislike"
+          />
+          <RatingPanel 
+            onClick={()=> this.like()} 
+            label="Positivas" 
+            value={likes} 
+            type="like"
+          />
         </div>
       </div>
     )
