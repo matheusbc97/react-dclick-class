@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 
 import RatingPanel from './components/RatingPanel'
 
@@ -8,13 +8,13 @@ const App = () => {
   const [likes, setLikes] = useState(0)
   const [dislikes, setDislikes] = useState(0)
 
-  const like = () => {
-    setLikes(likes + 1)
-  }
+  const like = useCallback(() => {
+    setLikes(oldState => oldState + 1)
+  }, [setLikes])
 
-  const dislike = () => {
-    setDislikes(dislikes-1)
-  }
+  const dislike = useCallback(() => {
+    setDislikes(oldState => oldState - 1)
+  }, [setDislikes])
 
   return (
     <div className={styles.container}>
