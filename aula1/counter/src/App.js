@@ -6,27 +6,31 @@ export default class App extends Component {
   constructor(){
     super();
     this.state = {
-      counter: 10
+      counter: 0
     };
   }
 
+  //Nunca incremente ou altere um valor no state do componente, toda a alteração deverá ser feita pelo setState 
   add(){
+    const { counter } = this.state;
     this.setState({
-      counter: this.state.counter + 1
+      counter: counter + 1
     })
   }
 
   subtract(){
+    const { counter } = this.state;
     this.setState({
-      counter: this.state.counter - 1
+      counter: counter - 1
     })
   }
 
   render() {
+    const { counter } = this.state;
     return (
       <div className="counter-container">
         <p className="title">Contador</p>
-        <p className="counter">{this.state.counter}</p>
+        <p className="counter">{counter}</p>
         <div className="buttons-container">
           <button onClick={()=>this.subtract()}>Remover</button>
           <button onClick={()=>this.add()}>Adicionar</button>
