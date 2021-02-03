@@ -36,10 +36,14 @@ export const LoginButton = styled.button`
   border-radius: 2px;
   cursor: pointer;
   margin: 10px 0;
+
+  &:hover {
+    background-color: #159bed;
+  }
 `;
 
 export const RegisterButton = styled.button`
-  background-color: none;
+  background-color: #eee;
   color: #424242;
   outline: none;
   border: none;
@@ -49,4 +53,8 @@ export const RegisterButton = styled.button`
   border-radius: 2px;
   cursor: pointer;
   margin: 10px 0;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
 `;
