@@ -1,6 +1,5 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import { FaUser, FaLock } from 'react-icons/fa';
 
 import styled from 'styled-components';
 
@@ -21,22 +20,11 @@ const InputHtml = styled.input`
   margin-left: 10px;
 `;
 
-export default class Input extends Component {
-  getIcon() {
-    const { icon } = this.props;
-    if (icon === 'user') {
-      return <FaUser size={23} color="#9e9e9e" />;
-    }
-
-    return <FaLock size={23} color="#9e9e9e" />;
-  }
-
+export default class LoginInput extends Component {
   render() {
-    const { placeholder, type, onChange, value } = this.props;
-
+    const { onChange, value, placeholder, type } = this.props;
     return (
       <Container>
-        {this.getIcon()}
         <InputHtml
           placeholder={placeholder}
           type={type}

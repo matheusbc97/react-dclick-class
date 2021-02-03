@@ -1,7 +1,8 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+
 import {
   Container,
   Content,
@@ -10,63 +11,111 @@ import {
   Title,
 } from './styles';
 
-import Input from './Input';
+import LoginInput from './LoginInput';
 
 class Login extends Component {
   constructor() {
     super();
+
     this.state = {
-      credentials: {
-        login: '',
+      formDetails: {
+        email: '',
         password: '',
+      },
+      formErrors: {
+        email: false,
+        password: false,
       },
     };
   }
 
-  setCredentials(key, value) {
-    const { credentials } = this.state;
-
+  setFormDetails(key, value) {
+    const { formDetails } = this.state;
     this.setState({
-      credentials: {
-        ...credentials,
+      formDetails: {
+        ...formDetails,
         [key]: value,
       },
     });
   }
 
-  login() {
-    const { credentials } = this.state;
-    console.log('credentials', credentials);
-
+  async login() {
+    const { formDetails } = this.state;
     const { history } = this.props;
-    history.push('home');
+
+    const errors = {
+      email: false,
+      password: false,
+    };
+
+    if (formDetails.email.length === 0) {
+      errors.email = true;
+    }
+
+    if (formDetails.password.length === 0) {
+      errors.password = true;
+    }
+
+    const hasErrors = Object.keys(errors).find((key) => errors[key] === true);
+
+    this.setState({
+      formErrors: errors,
+    });
+
+    if (hasErrors) {
+      return;
+    }
+
+    try {
+      const response = await axios.get('http://localhost:3004/users');
+
+      const user = response.data.find(
+        (userData) =>
+          userData.email === formDetails.email &&
+          userData.password === formDetails.password,
+      );
+
+      if (user) {
+        history.push('home');
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
+  }
+
+  register() {
+    const { history } = this.props;
+    history.push('register');
   }
 
   render() {
-    const { credentials } = this.state;
-
+    const { formDetails, formErrors } = this.state;
     return (
       <Container>
         <Content>
-          <Title>Faça o seu login!</Title>
-          <Input
-            icon="user"
-            placeholder="Login"
+          <Title>Logue-se</Title>
+          <LoginInput
+            placeholder="email"
             type="email"
-            onChange={(e) => this.setCredentials('login', e.target.value)}
-            value={credentials.login}
+            onChange={(e) => this.setFormDetails('email', e.target.value)}
+            value={formDetails.email}
+            icon="user"
+            hasError={formErrors.email}
           />
-          <Input
-            icon="lock"
-            placeholder="Senha"
+          <LoginInput
+            placeholder="password"
             type="password"
-            onChange={(e) => this.setCredentials('password', e.target.value)}
-            value={credentials.password}
+            onChange={(e) => this.setFormDetails('password', e.target.value)}
+            value={formDetails.password}
+            icon="lock"
+            hasError={formErrors.password}
           />
-          <LoginButton onClick={() => this.login()} type="submit">
+          <LoginButton type="submit" onClick={() => this.login()}>
             Login
           </LoginButton>
-          <RegisterButton type="button">Cadastre-se</RegisterButton>
+          <RegisterButton type="button" onClick={() => this.register()}>
+            Registre-se
+          </RegisterButton>
         </Content>
       </Container>
     );
