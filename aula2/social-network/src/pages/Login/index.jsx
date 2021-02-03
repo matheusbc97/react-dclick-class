@@ -1,6 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 
+import { withRouter } from 'react-router-dom';
 import {
   Container,
   Content,
@@ -11,7 +12,7 @@ import {
 
 import Input from './Input';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor() {
     super();
     this.state = {
@@ -36,6 +37,9 @@ export default class Login extends Component {
   login() {
     const { credentials } = this.state;
     console.log('credentials', credentials);
+
+    const { history } = this.props;
+    history.push('home');
   }
 
   render() {
@@ -68,3 +72,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default withRouter(Login);
