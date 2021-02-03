@@ -32,12 +32,17 @@ export default class Input extends Component {
   }
 
   render() {
-    const { placeholder, type } = this.props;
+    const { placeholder, type, onChange, value } = this.props;
 
     return (
       <Container>
         {this.getIcon()}
-        <InputHtml placeholder={placeholder} type={type} />
+        <InputHtml
+          placeholder={placeholder}
+          type={type}
+          onChange={onChange}
+          value={value}
+        />
       </Container>
     );
   }
