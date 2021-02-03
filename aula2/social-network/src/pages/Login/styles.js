@@ -9,8 +9,8 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  width: 350px;
-  padding: 20px;
+  width: 290px;
+  padding: 20px 50px;
   background-color: white;
   border-radius: 5px;
   display: flex;
