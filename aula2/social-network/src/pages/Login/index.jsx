@@ -1,7 +1,10 @@
-/* eslint-disable react/prefer-stateless-function */
+/* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
+import * as yup from 'yup';
+import { Formik } from 'formik';
+import api from '../../utils/api';
+// import getYupValidationErrors from '../../utils/getYupValidationErrors';
 
 import {
   Container,
@@ -14,61 +17,22 @@ import {
 import LoginInput from './LoginInput';
 
 class Login extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      formDetails: {
-        email: '',
-        password: '',
-      },
-      formErrors: {
-        email: false,
-        password: false,
-      },
-    };
-  }
-
-  setFormDetails(key, value) {
-    const { formDetails } = this.state;
-    this.setState({
-      formDetails: {
-        ...formDetails,
-        [key]: value,
-      },
-    });
-  }
-
   async login() {
-    const { formDetails } = this.state;
     const { history } = this.props;
 
-    const errors = {
-      email: false,
-      password: false,
-    };
-
-    if (formDetails.email.length === 0) {
-      errors.email = true;
-    }
-
-    if (formDetails.password.length === 0) {
-      errors.password = true;
-    }
-
-    const hasErrors = Object.keys(errors).find((key) => errors[key] === true);
-
-    this.setState({
-      formErrors: errors,
-    });
-
-    if (hasErrors) {
-      return;
-    }
-
     try {
-      const response = await axios.get('http://localhost:3004/users');
+      const response = await api.get('users');
 
+      console.log('response', response);
+    } catch (error) {
+      console.log('response', error);
+    }
+
+    /* {
+      const response = await axios.get('users');
+
+      console.log('response', response)
+   /*
       const user = response.data.find(
         (userData) =>
           userData.email === formDetails.email &&
@@ -80,7 +44,9 @@ class Login extends Component {
       }
     } catch (error) {
       console.log('error', error);
-    }
+    } */
+
+    history.push('home');
   }
 
   register() {
@@ -89,33 +55,73 @@ class Login extends Component {
   }
 
   render() {
-    const { formDetails, formErrors } = this.state;
+    const schema = yup.object().shape({
+      email: yup
+        .string()
+        .email('O email precisa ser valido')
+        .required('Campo Obrigatório'),
+      password: yup
+        .string()
+        .required('Campo Obrigatório')
+        .min(3, 'A senha deve conter ao menos 3 caracteres'),
+    });
+
     return (
       <Container>
         <Content>
           <Title>Logue-se</Title>
-          <LoginInput
-            placeholder="email"
-            type="email"
-            onChange={(e) => this.setFormDetails('email', e.target.value)}
-            value={formDetails.email}
-            icon="user"
-            hasError={formErrors.email}
-          />
-          <LoginInput
-            placeholder="password"
-            type="password"
-            onChange={(e) => this.setFormDetails('password', e.target.value)}
-            value={formDetails.password}
-            icon="lock"
-            hasError={formErrors.password}
-          />
-          <LoginButton type="submit" onClick={() => this.login()}>
-            Login
-          </LoginButton>
-          <RegisterButton type="button" onClick={() => this.register()}>
-            Registre-se
-          </RegisterButton>
+          <Formik
+            initialValues={{ email: '', password: '' }}
+            validationSchema={schema}
+            onSubmit={(values) => {
+              console.log('values', values);
+              // this.login(values);
+            }}
+          >
+            {({
+              values,
+              errors,
+              handleChange,
+              handleBlur,
+              /* and other goodies */
+            }) => (
+              <form>
+                {console.log('errors', errors)}
+                <LoginInput
+                  placeholder="email"
+                  type="email"
+                  icon="user"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                  error={errors.email}
+                  name="email"
+                />
+                <LoginInput
+                  placeholder="password"
+                  type="password"
+                  icon="lock"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                  error={errors.password}
+                  name="password"
+                />
+                <LoginButton
+                  type="submit"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    this.login();
+                  }}
+                >
+                  Login
+                </LoginButton>
+                <RegisterButton type="button" onClick={() => this.register()}>
+                  Registre-se
+                </RegisterButton>
+              </form>
+            )}
+          </Formik>
         </Content>
       </Container>
     );

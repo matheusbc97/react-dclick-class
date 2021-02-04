@@ -43,19 +43,14 @@ export default class LoginInput extends Component {
   }
 
   render() {
-    const { onChange, value, placeholder, type, hasError } = this.props;
+    const { error, ...rest } = this.props;
     return (
       <Container>
         <Content>
           {this.getIcon()}
-          <InputHtml
-            placeholder={placeholder}
-            type={type}
-            onChange={onChange}
-            value={value}
-          />
+          <InputHtml {...rest} />
         </Content>
-        {hasError && <ErrorText>Campo Obrigatório</ErrorText>}
+        {!!error && <ErrorText>{error}</ErrorText>}
       </Container>
     );
   }
