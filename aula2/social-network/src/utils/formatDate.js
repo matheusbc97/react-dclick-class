@@ -17,7 +17,7 @@ export default function formatDate(date, type = 'complete') {
   const convertedDate = new Date();
   parse(date, 'yyyy-MM-dd', convertedDate);
 
-  const dateFormated = format(convertedDate, dateFormat);
+  const dateFormatted = format(convertedDate, dateFormat);
 
-  return dateFormated;
+  return dateFormatted;
 }
