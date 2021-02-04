@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import api from '../../utils/api';
-// import getYupValidationErrors from '../../utils/getYupValidationErrors';
 
 import {
   Container,
@@ -17,22 +16,12 @@ import {
 import LoginInput from './LoginInput';
 
 class Login extends Component {
-  async login() {
+  async login(formDetails) {
     const { history } = this.props;
 
     try {
       const response = await api.get('users');
 
-      console.log('response', response);
-    } catch (error) {
-      console.log('response', error);
-    }
-
-    /* {
-      const response = await axios.get('users');
-
-      console.log('response', response)
-   /*
       const user = response.data.find(
         (userData) =>
           userData.email === formDetails.email &&
@@ -44,7 +33,7 @@ class Login extends Component {
       }
     } catch (error) {
       console.log('error', error);
-    } */
+    }
 
     history.push('home');
   }
@@ -72,21 +61,18 @@ class Login extends Component {
           <Title>Logue-se</Title>
           <Formik
             initialValues={{ email: '', password: '' }}
+            onSubmit={() => this.login()}
             validationSchema={schema}
-            onSubmit={(values) => {
-              console.log('values', values);
-              // this.login(values);
-            }}
           >
             {({
               values,
               errors,
               handleChange,
               handleBlur,
+              handleSubmit,
               /* and other goodies */
             }) => (
-              <form>
-                {console.log('errors', errors)}
+              <form onSubmit={handleSubmit}>
                 <LoginInput
                   placeholder="email"
                   type="email"
@@ -107,18 +93,18 @@ class Login extends Component {
                   error={errors.password}
                   name="password"
                 />
-                <LoginButton
-                  type="submit"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    this.login();
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
                   }}
                 >
-                  Login
-                </LoginButton>
-                <RegisterButton type="button" onClick={() => this.register()}>
-                  Registre-se
-                </RegisterButton>
+                  <LoginButton type="submit">Login</LoginButton>
+                  <RegisterButton type="button" onClick={() => this.register()}>
+                    Registre-se
+                  </RegisterButton>
+                </div>
               </form>
             )}
           </Formik>
