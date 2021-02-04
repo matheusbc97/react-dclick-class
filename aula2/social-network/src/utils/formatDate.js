@@ -5,16 +5,19 @@ export default function formatDate(date, format = 'DD/MM/YYYY [às] HH:mm') {
 }
 */
 
-import { format, toDate, parse } from 'date-fns';
+import { format, parse } from 'date-fns';
 
 export default function formatDate(date, type = 'complete') {
   let dateFormat = '';
 
   if (type === 'complete') {
-    dateFormat = 'dd/MM/uuuu';
+    dateFormat = "dd/MM/uuuu 'às' HH:mm'h'";
   }
 
-  const dateToFormat = parse(date, 'yyyy-MM-dd', new Date());
+  const convertedDate = new Date();
+  parse(date, 'yyyy-MM-dd', convertedDate);
 
-  return format(dateToFormat, dateFormat);
+  const dateFormated = format(convertedDate, dateFormat);
+
+  return dateFormated;
 }
