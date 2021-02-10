@@ -63,7 +63,6 @@ class Register extends Component {
 
     try {
       await axios.post('http://localhost:3004/users', user);
-      console.log('funcionou');
     } catch (error) {
       console.log(error);
     }

@@ -1,9 +1,13 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/forbid-prop-types */
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import formatDate from '../../utils/formatDate';
 
 import { PostContainer, PostText, PostFooterText } from './styles';
 
-export default class Post extends PureComponent {
+class Post extends PureComponent {
   render() {
     const { post } = this.props;
 
@@ -17,3 +21,9 @@ export default class Post extends PureComponent {
     );
   }
 }
+
+Post.propTypes = {
+  post: PropTypes.object,
+};
+
+export default Post;

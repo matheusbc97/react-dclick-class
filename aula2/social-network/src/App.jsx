@@ -1,24 +1,14 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-import Register from './pages/Register';
-import Login from './pages/Login';
-import Home from './pages/Home';
+import Navigation from './Navigation';
+
+import configureStore from './store/configureStore';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/">
-          <Login />
-        </Route>
-        <Route exact path="/register">
-          <Register />
-        </Route>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Provider store={configureStore()}>
+      <Navigation />
+    </Provider>
   );
 }
 

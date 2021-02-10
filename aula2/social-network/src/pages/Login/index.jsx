@@ -3,7 +3,15 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as yup from 'yup';
 import { Formik } from 'formik';
+
+import { connect } from 'react-redux';
 import api from '../../utils/api';
+import { saveUserToStorage } from '../../utils/userStorage';
+import { showToastAction } from '../../store/toast/actions';
+import {
+  showScreenLoadingAction,
+  hideScreenLoadingAction,
+} from '../../store/screenLoading/actions';
 
 import {
   Container,
@@ -16,9 +24,19 @@ import {
 import LoginInput from './LoginInput';
 
 class Login extends Component {
-  async login(formDetails) {
-    const { history } = this.props;
+  componentDidMount() {
+    console.log('props', this.props);
+  }
 
+  async login(formDetails) {
+    const {
+      showToast,
+      history,
+      showScreenLoading,
+      hideScreenLoading,
+    } = this.props;
+
+    showScreenLoading();
     try {
       const response = await api.get('users');
 
@@ -28,14 +46,34 @@ class Login extends Component {
           userData.password === formDetails.password,
       );
 
+      /* api.interceptors.request.use(
+        function (config) {
+          return {
+            ...config,
+            headers: {
+              Authorization: 'Bearear saçlkdasmsdakjnkdj sandksjnas-assasa',
+            },
+          };
+        },
+        function (error) {
+          // Do something with request error
+          return Promise.reject(error);
+        },
+      ); */
+
+      saveUserToStorage(user);
+
+      hideScreenLoading();
+
       if (user) {
         history.push('home');
       }
     } catch (error) {
+      hideScreenLoading();
+      showToast('Ocorreu Um erro inesperado');
+
       console.log('error', error);
     }
-
-    history.push('home');
   }
 
   register() {
@@ -61,17 +99,10 @@ class Login extends Component {
           <Title>Logue-se</Title>
           <Formik
             initialValues={{ email: '', password: '' }}
-            onSubmit={() => this.login()}
+            onSubmit={(formDetails) => this.login(formDetails)}
             validationSchema={schema}
           >
-            {({
-              values,
-              errors,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              /* and other goodies */
-            }) => (
+            {({ values, errors, handleChange, handleBlur, handleSubmit }) => (
               <form onSubmit={handleSubmit}>
                 <LoginInput
                   placeholder="email"
@@ -114,4 +145,10 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login);
+export default withRouter(
+  connect(() => {}, {
+    showToast: showToastAction,
+    showScreenLoading: showScreenLoadingAction,
+    hideScreenLoading: hideScreenLoadingAction,
+  })(Login),
+);

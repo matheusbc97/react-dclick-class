@@ -1,6 +1,8 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Post from './Post';
+import { setUserAction } from '../../store/user/actions';
 
 import api from '../../utils/api';
 
@@ -8,7 +10,7 @@ import { Chronometer } from '../../components';
 
 import { Container, Header, Content } from './styles';
 
-export default class Home extends Component {
+class Home extends Component {
   constructor() {
     super();
 
@@ -19,6 +21,11 @@ export default class Home extends Component {
 
   async componentDidMount() {
     try {
+      const { setUserAction: setUser } = this.props;
+      setUser({
+        name: 'qualquer',
+      });
+
       const response = await api.get('posts');
 
       this.setState({ posts: response.data });
@@ -50,3 +57,11 @@ export default class Home extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  };
+}
+
+export default connect(mapStateToProps, { setUserAction })(Home);
