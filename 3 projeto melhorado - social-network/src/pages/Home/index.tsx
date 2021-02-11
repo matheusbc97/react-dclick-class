@@ -1,19 +1,20 @@
-/* eslint-disable react/prefer-stateless-function */
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import Post from './Post';
+import PostCard from './Post';
 import { setUserAction } from '../../store/user/actions';
 
 import api from '../../utils/api';
 
 import { Chronometer } from '../../components';
 
+import { Post } from '../../models';
+
 import { Container, Header, Content, UserName } from './styles';
 
 import useUser from '../../hooks/useUser';
 
-const Home = () => {
-  const [posts, setPosts] = useState([]);
+const Home: React.FC = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
 
   const dispatch = useDispatch();
   const chronometerRef = useRef(null);
@@ -33,7 +34,7 @@ const Home = () => {
 
         setPosts(response.data);
 
-        chronometerRef.current.startChronometer();
+        // chronometerRef.current.startChronometer();
       } catch (error) {
         console.log('error');
       }
@@ -51,7 +52,7 @@ const Home = () => {
       </Header>
       <Content>
         {posts.map((post) => (
-          <Post post={post} key={post.id} />
+          <PostCard post={post} key={post.id} />
         ))}
       </Content>
     </Container>
