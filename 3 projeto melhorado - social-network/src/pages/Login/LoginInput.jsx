@@ -1,5 +1,4 @@
-/* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
+import { useMemo } from 'react';
 import { FaUser, FaLock } from 'react-icons/fa';
 
 import styled from 'styled-components';
@@ -32,26 +31,26 @@ const ErrorText = styled.p`
   margin-left: 5px;
 `;
 
-export default class LoginInput extends Component {
-  getIcon() {
-    const { icon } = this.props;
-    if (icon === 'user') {
-      return <FaUser size={23} color="#9e9e9e" />;
-    }
+const LoginIcon = ({ icon }) => {
+  const isUserIcon = useMemo(() => icon === 'user', [icon]);
 
-    return <FaLock size={23} color="#9e9e9e" />;
+  if (isUserIcon) {
+    return <FaUser size={23} color="#9e9e9e" />;
   }
 
-  render() {
-    const { error, ...rest } = this.props;
-    return (
-      <Container>
-        <Content>
-          {this.getIcon()}
-          <InputHtml {...rest} />
-        </Content>
-        {!!error && <ErrorText>{error}</ErrorText>}
-      </Container>
-    );
-  }
-}
+  return <FaLock size={23} color="#9e9e9e" />;
+};
+
+const LoginInput = ({ error, icon, ...rest }) => {
+  return (
+    <Container>
+      <Content>
+        <LoginIcon icon={icon} />
+        <InputHtml {...rest} />
+      </Content>
+      {!!error && <ErrorText>{error}</ErrorText>}
+    </Container>
+  );
+};
+
+export default LoginInput;

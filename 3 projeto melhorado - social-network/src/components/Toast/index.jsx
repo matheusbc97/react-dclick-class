@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { hideToastAction } from '../../store/toast/actions';
 
@@ -14,29 +14,19 @@ const Container = styled.div`
   border-radius: 5px;
 `;
 
-class Toast extends Component {
-  componentDidUpdate(prevProps) {
-    const { toastOptions, hideToast } = this.props;
+const Toast = () => {
+  const dispatch = useDispatch();
+  const toastOptions = useSelector((state) => state.toast);
 
-    if (toastOptions !== prevProps.toastOptions) {
-      setTimeout(() => hideToast(), 3000);
-    }
+  useEffect(() => {
+    setTimeout(() => dispatch(hideToastAction()), 3000);
+  }, [toastOptions, dispatch]);
+
+  if (toastOptions.active) {
+    return <Container>{toastOptions.text}</Container>;
   }
 
-  render() {
-    const { toastOptions } = this.props;
-    if (toastOptions.active) {
-      return <Container>{toastOptions.text}</Container>;
-    }
+  return null;
+};
 
-    return null;
-  }
-}
-
-function mapStateToProps(state) {
-  return {
-    toastOptions: state.toast,
-  };
-}
-
-export default connect(mapStateToProps, { hideToast: hideToastAction })(Toast);
+export default Toast;

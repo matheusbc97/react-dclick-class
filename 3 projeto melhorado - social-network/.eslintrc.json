@@ -33,6 +33,7 @@
       "import/prefer-default-export":"off",
       "camelcase": "off",
       "jsx-a11y/control-has-associated-label": "off",
-      "react/prefer-stateless-function": "off"
+      "react/prefer-stateless-function": "off",
+      "no-empty-pattern": "off"
     }
 }

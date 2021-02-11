@@ -17,29 +17,35 @@
       "email": "matheus2@teste.com",
       "password": "123456",
       "id": "sACwi7a"
+    },
+    {
+      "name": "matheus",
+      "email": "matheus11@teste.com",
+      "password": "123456",
+      "id": "b2mDDWa"
     }
   ],
   "posts": [
     {
-      "id":"1",
+      "id": "1",
       "text": "Isso é um teste",
       "user": "Matheus",
       "date": "2021-02-04T14:00:00"
     },
     {
-      "id":"2",
+      "id": "2",
       "text": "Isso é um teste 2",
       "user": "Matheus",
       "date": "2021-02-04T14:00:00"
     },
     {
-      "id":"3",
+      "id": "3",
       "text": "Isso é um teste 3",
       "user": "Matheus",
       "date": "2021-02-04T14:00:00"
     },
     {
-      "id":"4",
+      "id": "4",
       "text": "Isso é um teste 4",
       "user": "Matheus",
       "date": "2021-02-04T14:00:00"

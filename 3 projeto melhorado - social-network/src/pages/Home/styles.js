@@ -34,3 +34,8 @@ export const PostFooterText = styled.p`
   margin: 0;
   font-size: 14px;
 `;
+
+export const UserName = styled.p`
+  margin: 0;
+  margin-left: 20px;
+`

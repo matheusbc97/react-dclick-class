@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import Post from './Post';
 import { setUserAction } from '../../store/user/actions';
 
@@ -8,60 +8,54 @@ import api from '../../utils/api';
 
 import { Chronometer } from '../../components';
 
-import { Container, Header, Content } from './styles';
+import { Container, Header, Content, UserName } from './styles';
 
-class Home extends Component {
-  constructor() {
-    super();
+import useUser from '../../hooks/useUser';
 
-    this.state = {
-      posts: [],
+const Home = () => {
+  const [posts, setPosts] = useState([]);
+
+  const dispatch = useDispatch();
+  const chronometerRef = useRef(null);
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        dispatch(
+          setUserAction({
+            name: 'qualquer',
+          }),
+        );
+
+        const response = await api.get('posts');
+
+        setPosts(response.data);
+
+        chronometerRef.current.startChronometer();
+      } catch (error) {
+        console.log('error');
+      }
     };
-  }
 
-  async componentDidMount() {
-    try {
-      const { setUserAction: setUser } = this.props;
-      setUser({
-        name: 'qualquer',
-      });
+    getPosts();
+  }, [dispatch]);
 
-      const response = await api.get('posts');
+  return (
+    <Container>
+      <Header>
+        <UserName>{user && user.name}</UserName>
 
-      this.setState({ posts: response.data });
+        <Chronometer ref={chronometerRef} />
+      </Header>
+      <Content>
+        {posts.map((post) => (
+          <Post post={post} key={post.id} />
+        ))}
+      </Content>
+    </Container>
+  );
+};
 
-      this.chronometerRef.startChronometer();
-    } catch (error) {
-      console.log('error');
-    }
-  }
-
-  render() {
-    const { posts } = this.state;
-
-    return (
-      <Container>
-        <Header>
-          <Chronometer
-            ref={(ref) => {
-              this.chronometerRef = ref;
-            }}
-          />
-        </Header>
-        <Content>
-          {posts.map((post) => (
-            <Post post={post} key={post.id} />
-          ))}
-        </Content>
-      </Container>
-    );
-  }
-}
-
-function mapStateToProps(state) {
-  return {
-    user: state.user,
-  };
-}
-
-export default connect(mapStateToProps, { setUserAction })(Home);
+export default Home;

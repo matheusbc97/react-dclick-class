@@ -1,4 +1,9 @@
-import React, { Component } from 'react';
+import React, {
+  useState,
+  useCallback,
+  useImperativeHandle,
+  forwardRef,
+} from 'react';
 import styled from 'styled-components';
 
 export const ChronometerContainer = styled.div`
@@ -13,31 +18,30 @@ export const ChronometerText = styled.p`
   margin: 0;
 `;
 
-export default class Chronometer extends Component {
-  constructor() {
-    super();
+const Chronometer = ({}, ref) => {
+  const [chronometer, setChronometer] = useState(0);
 
-    this.state = {
-      chronometer: 0,
-    };
-  }
-
-  startChronometer() {
-    const { chronometer } = this.state;
-
+  const startChronometer = useCallback(() => {
     setTimeout(() => {
-      this.setState({ chronometer: chronometer + 1 });
-      this.startChronometer();
+      setChronometer((oldState) => oldState + 1);
+      startChronometer();
     }, 1000);
-  }
+  }, []);
 
-  render() {
-    const { chronometer } = this.state;
-    return (
-      <ChronometerContainer>
-        <ChronometerText>Tempo de sessão:</ChronometerText>
-        <ChronometerTime>{chronometer}</ChronometerTime>
-      </ChronometerContainer>
-    );
-  }
-}
+  useImperativeHandle(
+    ref,
+    () => ({
+      startChronometer,
+    }),
+    [startChronometer],
+  );
+
+  return (
+    <ChronometerContainer>
+      <ChronometerText>Tempo de sessão:</ChronometerText>
+      <ChronometerTime>{chronometer}</ChronometerTime>
+    </ChronometerContainer>
+  );
+};
+
+export default forwardRef(Chronometer);

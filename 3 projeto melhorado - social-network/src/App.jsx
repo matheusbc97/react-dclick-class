@@ -4,10 +4,14 @@ import Navigation from './Navigation';
 
 import configureStore from './store/configureStore';
 
+import UserProvider from './providers/UserProvider';
+
 function App() {
   return (
     <Provider store={configureStore()}>
-      <Navigation />
+      <UserProvider>
+        <Navigation />
+      </UserProvider>
     </Provider>
   );
 }

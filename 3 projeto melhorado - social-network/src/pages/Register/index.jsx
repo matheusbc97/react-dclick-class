@@ -1,40 +1,25 @@
 /* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import Input from '../../components/Input';
-
+import useFormDetails from './useFormDetails';
+import { saveUserToStorage } from '../../utils/userStorage';
 import { Container, Content, RegisterButton, Title } from './styles';
+import api from '../../utils/api';
 
-class Register extends Component {
-  constructor() {
-    super();
+const Register = () => {
+  const [formDetails, setFormDetails] = useFormDetails({
+    email: '',
+    password: '',
+    confirmPasword: '',
+    name: '',
+  });
 
-    this.state = {
-      formDetails: {
-        email: '',
-        password: '',
-        confirmPasword: '',
-        name: '',
-      },
-    };
-  }
+  const history = useHistory('');
 
-  setFormDetails(key, value) {
-    const { formDetails } = this.state;
-    this.setState({
-      formDetails: {
-        ...formDetails,
-        [key]: value,
-      },
-    });
-  }
-
-  async register() {
-    const { formDetails } = this.state;
-    // const { history } = this.props;
-
+  const register = useCallback(async () => {
     if (formDetails.email.length === 0) {
       return;
     }
@@ -63,51 +48,61 @@ class Register extends Component {
 
     try {
       await axios.post('http://localhost:3004/users', user);
+      api.interceptors.request.use(
+        (config) => ({
+          ...config,
+          headers: {
+            Authorization: 'Bearear saçlkdasmsdakjnkdj sandksjnas-assasa',
+          },
+        }),
+        (error) => Promise.reject(error),
+      );
+
+      saveUserToStorage(user);
+
+      history.push('home');
     } catch (error) {
       console.log(error);
     }
-  }
+  }, [formDetails, history]);
 
-  render() {
-    const { formDetails } = this.state;
-    return (
-      <Container>
-        <Content>
-          <Title>Cadastra-se</Title>
-          <Input
-            placeholder="Nome"
-            type="name"
-            onChange={(e) => this.setFormDetails('name', e.target.value)}
-            value={formDetails.name}
-          />
-          <Input
-            placeholder="Email"
-            type="email"
-            onChange={(e) => this.setFormDetails('email', e.target.value)}
-            value={formDetails.email}
-          />
+  return (
+    <Container>
+      <Content>
+        <Title>Cadastra-se</Title>
+        <Input
+          placeholder="Nome"
+          type="name"
+          onChange={(e) => setFormDetails('name', e.target.value)}
+          value={formDetails.name}
+        />
+        <Input
+          placeholder="Email"
+          type="email"
+          onChange={(e) => setFormDetails('email', e.target.value)}
+          value={formDetails.email}
+        />
 
-          <Input
-            placeholder="Senha"
-            type="password"
-            onChange={(e) => this.setFormDetails('password', e.target.value)}
-            value={formDetails.password}
-          />
-          <Input
-            placeholder="Confirmar Senha"
-            type="password"
-            onChange={(e) => {
-              this.setFormDetails('confirmPasword', e.target.value);
-            }}
-            value={formDetails.confirmPasword}
-          />
-          <RegisterButton type="submit" onClick={() => this.register()}>
-            Enviar
-          </RegisterButton>
-        </Content>
-      </Container>
-    );
-  }
-}
+        <Input
+          placeholder="Senha"
+          type="password"
+          onChange={(e) => setFormDetails('password', e.target.value)}
+          value={formDetails.password}
+        />
+        <Input
+          placeholder="Confirmar Senha"
+          type="password"
+          onChange={(e) => {
+            setFormDetails('confirmPasword', e.target.value);
+          }}
+          value={formDetails.confirmPasword}
+        />
+        <RegisterButton type="submit" onClick={register}>
+          Enviar
+        </RegisterButton>
+      </Content>
+    </Container>
+  );
+};
 
-export default withRouter(Register);
+export default Register;
