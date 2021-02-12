@@ -7,7 +7,12 @@ export default function formatDate(date, format = 'DD/MM/YYYY [às] HH:mm') {
 
 import { format, parse } from 'date-fns';
 
-export default function formatDate(date, type = 'complete') {
+type FormatDateTypes = 'complete';
+
+export default function formatDate(
+  date: string,
+  type: FormatDateTypes = 'complete',
+): string {
   let dateFormat = '';
 
   if (type === 'complete') {

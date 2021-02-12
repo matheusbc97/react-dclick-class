@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import PostCard from './Post';
-import { setUserAction } from '../../store/user/actions';
 
 import api from '../../utils/api';
 
@@ -24,12 +23,6 @@ const Home: React.FC = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        dispatch(
-          setUserAction({
-            name: 'qualquer',
-          }),
-        );
-
         const response = await api.get('posts');
 
         setPosts(response.data);

@@ -1,6 +1,13 @@
+import { Dispatch } from 'redux';
 import { SHOW_SCREEN_LOADING, HIDE_SCREEN_LOADING } from './actionTypes';
 
-export function showScreenLoadingAction(toastOptions) {
+interface ScreenLoadingOptions {
+  active: boolean;
+}
+
+export function showScreenLoadingAction(
+  toastOptions?: ScreenLoadingOptions,
+): (dispatch: Dispatch) => void {
   return (dispatch) => {
     dispatch({
       type: SHOW_SCREEN_LOADING,
@@ -9,7 +16,7 @@ export function showScreenLoadingAction(toastOptions) {
   };
 }
 
-export function hideScreenLoadingAction() {
+export function hideScreenLoadingAction(): (dispatch: Dispatch) => void {
   return (dispatch) => {
     dispatch({
       type: HIDE_SCREEN_LOADING,

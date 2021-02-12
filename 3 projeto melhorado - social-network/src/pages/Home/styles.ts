@@ -38,4 +38,4 @@ export const PostFooterText = styled.p`
 export const UserName = styled.p`
   margin: 0;
   margin-left: 20px;
-`
+`;

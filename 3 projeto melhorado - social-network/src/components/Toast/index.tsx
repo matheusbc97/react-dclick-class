@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { hideToastAction } from '../../store/toast/actions';
+import { RootState } from '../../store/configureStore';
 
 const Container = styled.div`
   width: 300px;
@@ -14,9 +15,9 @@ const Container = styled.div`
   border-radius: 5px;
 `;
 
-const Toast = () => {
+const Toast: React.FC = () => {
   const dispatch = useDispatch();
-  const toastOptions = useSelector((state) => state.toast);
+  const toastOptions = useSelector((state: RootState) => state.toast);
 
   useEffect(() => {
     setTimeout(() => dispatch(hideToastAction()), 3000);

@@ -1,23 +1,31 @@
-/* eslint-disable react/prefer-stateless-function */
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import Input from '../../components/Input';
 import useFormDetails from './useFormDetails';
-import { saveUserToStorage } from '../../utils/userStorage';
 import { Container, Content, RegisterButton, Title } from './styles';
 import api from '../../utils/api';
+import useUser from '../../hooks/useUser';
 
-const Register = () => {
-  const [formDetails, setFormDetails] = useFormDetails({
+interface FormDetails {
+  email: string;
+  password: string;
+  confirmPasword: string;
+  name: string;
+}
+
+const Register: React.FC = () => {
+  const [formDetails, setFormDetails] = useFormDetails<FormDetails>({
     email: '',
     password: '',
     confirmPasword: '',
     name: '',
   });
 
-  const history = useHistory('');
+  const { authenticate } = useUser();
+
+  const history = useHistory();
 
   const register = useCallback(async () => {
     if (formDetails.email.length === 0) {
@@ -48,6 +56,9 @@ const Register = () => {
 
     try {
       await axios.post('http://localhost:3004/users', user);
+
+      await authenticate({ email: user.email, password: user.password });
+
       api.interceptors.request.use(
         (config) => ({
           ...config,
@@ -58,13 +69,11 @@ const Register = () => {
         (error) => Promise.reject(error),
       );
 
-      saveUserToStorage(user);
-
       history.push('home');
     } catch (error) {
       console.log(error);
     }
-  }, [formDetails, history]);
+  }, [formDetails, history, authenticate]);
 
   return (
     <Container>

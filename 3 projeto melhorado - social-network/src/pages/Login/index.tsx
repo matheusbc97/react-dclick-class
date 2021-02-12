@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import React, { useMemo, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
@@ -22,7 +21,12 @@ import {
 
 import LoginInput from './LoginInput';
 
-const Login = () => {
+interface FormDetails {
+  email: string;
+  password: string;
+}
+
+const Login: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -33,10 +37,9 @@ const Login = () => {
   const { authenticate } = useUser();
 
   const login = useCallback(
-    async (formDetails) => {
+    async (formDetails: FormDetails) => {
       dispatch(showScreenLoadingAction());
       try {
-        console.log('testennn');
         const hasLogged = await authenticate(formDetails);
 
         dispatch(hideScreenLoadingAction());
@@ -46,7 +49,7 @@ const Login = () => {
         }
       } catch (error) {
         dispatch(hideScreenLoadingAction());
-        dispatch(showToastAction('Ocorreu Um erro inesperado'));
+        dispatch(showToastAction({ text: 'Ocorreu Um erro inesperado' }));
 
         console.log('error', error);
       }

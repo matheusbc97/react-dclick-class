@@ -18,7 +18,7 @@ export const ChronometerText = styled.p`
   margin: 0;
 `;
 
-const Chronometer = ({}, ref) => {
+const Chronometer: React.ForwardRefRenderFunction<unknown> = ({}, ref) => {
   const [chronometer, setChronometer] = useState(0);
 
   const startChronometer = useCallback(() => {

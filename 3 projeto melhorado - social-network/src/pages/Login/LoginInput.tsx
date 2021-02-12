@@ -31,7 +31,13 @@ const ErrorText = styled.p`
   margin-left: 5px;
 `;
 
-const LoginIcon = ({ icon }) => {
+type IconType = 'user' | 'lock';
+
+interface LoginIconProps {
+  icon: IconType;
+}
+
+function LoginIcon({ icon }: LoginIconProps) {
   const isUserIcon = useMemo(() => icon === 'user', [icon]);
 
   if (isUserIcon) {
@@ -39,9 +45,14 @@ const LoginIcon = ({ icon }) => {
   }
 
   return <FaLock size={23} color="#9e9e9e" />;
-};
+}
 
-const LoginInput = ({ error, icon, ...rest }) => {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  error: string | undefined;
+  icon: IconType;
+}
+
+function LoginInput({ error, icon, ...rest }: Props): JSX.Element {
   return (
     <Container>
       <Content>
@@ -51,6 +62,6 @@ const LoginInput = ({ error, icon, ...rest }) => {
       {!!error && <ErrorText>{error}</ErrorText>}
     </Container>
   );
-};
+}
 
 export default LoginInput;
