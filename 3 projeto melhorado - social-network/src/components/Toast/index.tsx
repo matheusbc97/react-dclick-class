@@ -24,7 +24,9 @@ const Toast: React.FC = () => {
   }, [toastOptions, dispatch]);
 
   if (toastOptions.active) {
-    return <Container>{toastOptions.text}</Container>;
+    return (
+      <Container data-testid="toast-container">{toastOptions.text}</Container>
+    );
   }
 
   return null;
