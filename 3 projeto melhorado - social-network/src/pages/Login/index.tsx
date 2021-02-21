@@ -40,13 +40,9 @@ const Login: React.FC = () => {
     async (formDetails: FormDetails) => {
       dispatch(showScreenLoadingAction());
       try {
-        const hasLogged = await authenticate(formDetails);
+        await authenticate(formDetails);
 
         dispatch(hideScreenLoadingAction());
-
-        if (hasLogged) {
-          history.push('home');
-        }
       } catch (error) {
         dispatch(hideScreenLoadingAction());
         dispatch(showToastAction({ text: 'Ocorreu Um erro inesperado' }));
@@ -54,7 +50,7 @@ const Login: React.FC = () => {
         console.log('error', error);
       }
     },
-    [history, dispatch, authenticate],
+    [dispatch, authenticate],
   );
 
   const schema = useMemo(() => {

@@ -6,6 +6,10 @@ export function saveUserToStorage(user: User): void {
   localStorage.setItem(userKey, JSON.stringify(user));
 }
 
+export function resetUserInStorage(): void {
+  localStorage.removeItem(userKey);
+}
+
 export function getUser(): null | User {
   const stringUser = localStorage.getItem(userKey);
 

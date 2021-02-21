@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 
 import useUser from './hooks/useUser';
@@ -11,20 +10,31 @@ import { getUser } from './utils/userStorage';
 
 import { Toast, ScreenLoading } from './components';
 
-const Routes = () => {
+const Routes: React.FC = () => {
   const history = useHistory();
-  const { setUser } = useUser();
+  const { setUser, user } = useUser();
+
+  const firstRenderRef = useRef<boolean>(false);
 
   useEffect(() => {
-    const user = getUser();
+    const userLocalStorage = getUser();
 
-    if (user) {
-      setUser(user);
-      history.replace('home');
-    } else {
-      history.replace('/');
+    if (userLocalStorage) {
+      setUser(userLocalStorage);
     }
-  }, [history, setUser]);
+  }, [setUser, history]);
+
+  useLayoutEffect(() => {
+    if (firstRenderRef.current) {
+      if (user) {
+        history.push('home');
+      } else {
+        history.replace('/');
+      }
+    } else {
+      firstRenderRef.current = true;
+    }
+  }, [history, user]);
 
   return (
     <>

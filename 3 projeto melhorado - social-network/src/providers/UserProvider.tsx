@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 import { useState, createContext, useCallback } from 'react';
 import api from '../utils/api';
-import { saveUserToStorage } from '../utils/userStorage';
+import { saveUserToStorage, resetUserInStorage } from '../utils/userStorage';
 import { User } from '../models';
 
 type Authenticate = (formDetails: {
@@ -15,7 +15,9 @@ export interface UserContextData {
   user: User | null;
   authenticate: Authenticate;
   setUser: SetUser;
+  resetUser(): void;
 }
+
 const UserContext = createContext({} as UserContextData);
 
 const UserProvider: React.FC = ({ children }) => {
@@ -57,8 +59,15 @@ const UserProvider: React.FC = ({ children }) => {
     [setUser],
   );
 
+  const resetUser = useCallback(() => {
+    setUserState(null);
+    resetUserInStorage();
+  }, []);
+
   return (
-    <UserContext.Provider value={{ user: userState, authenticate, setUser }}>
+    <UserContext.Provider
+      value={{ user: userState, authenticate, setUser, resetUser }}
+    >
       {children}
     </UserContext.Provider>
   );
