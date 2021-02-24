@@ -1,10 +1,7 @@
 import { Dispatch } from 'redux';
 import { SHOW_TOAST, HIDE_TOAST } from './actionTypes';
 
-interface ToastOptions {
-  active?: boolean;
-  text: string;
-}
+import { ToastOptions } from './reducer';
 
 export function showToastAction(
   toastOptions: ToastOptions,

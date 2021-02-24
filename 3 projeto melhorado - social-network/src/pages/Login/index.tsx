@@ -45,7 +45,12 @@ const Login: React.FC = () => {
         dispatch(hideScreenLoadingAction());
       } catch (error) {
         dispatch(hideScreenLoadingAction());
-        dispatch(showToastAction({ text: 'Ocorreu Um erro inesperado' }));
+        dispatch(
+          showToastAction({
+            text: 'Ocorreu Um erro inesperado',
+            type: 'danger',
+          }),
+        );
 
         console.log('error', error);
       }
