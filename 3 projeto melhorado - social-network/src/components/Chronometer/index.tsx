@@ -21,6 +21,8 @@ const ChronometerTime = styled.p`
 
 const ChronometerText = styled.p`
   margin: 0;
+  font-size: 15px;
+  color: #424242;
 `;
 
 export interface ChronometerHandles {
@@ -91,9 +93,9 @@ const Chronometer: React.ForwardRefRenderFunction<unknown> = ({}, ref) => {
   return (
     <ChronometerContainer>
       <ChronometerText>Tempo de sessão:</ChronometerText>
-      <ChronometerTime>
+      <ChronometerText>
         {hours}:{minutes}:{seconds}h
-      </ChronometerTime>
+      </ChronometerText>
     </ChronometerContainer>
   );
 };

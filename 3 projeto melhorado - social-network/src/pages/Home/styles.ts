@@ -7,7 +7,11 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  margin: 5px 0;
+  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const ExitButton = styled.button`
@@ -38,9 +42,13 @@ export const Header = styled.div`
 
 export const PostContainer = styled.div`
   padding: 20px;
-  border: 1px solid #424242;
+  -webkit-box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
-  margin: 10px;
+  margin: 10px 20px;
+  background-color: #fff;
+  max-width: 450px;
+  cursor: pointer;
 `;
 
 export const PostText = styled.p`
@@ -51,6 +59,7 @@ export const PostText = styled.p`
 export const PostFooterText = styled.p`
   margin: 0;
   font-size: 14px;
+  color: #9e9e9e;
 `;
 
 export const UserName = styled.p`

@@ -16,7 +16,7 @@ const Header: React.FC = () => {
 
   return (
     <Container>
-      <UserName>{user && user.name}</UserName>
+      <UserName>Olá, {user?.name}</UserName>
 
       <Chronometer ref={chronometerRef} />
 
@@ -49,7 +49,7 @@ const ExitButton = styled.button`
 
 const Container = styled.div`
   height: 60px;
-  background: #e6e6e6;
+  background: #eee;
   width: 100%;
   display: flex;
   align-items: center;
@@ -58,4 +58,6 @@ const Container = styled.div`
 const UserName = styled.p`
   margin: 0;
   margin-left: 20px;
+  font-size: 14px;
+  color: #424242;
 `;
