@@ -41,28 +41,6 @@ export const Header = styled.div`
   align-items: center;
 `;
 
-export const PostContainer = styled.div`
-  padding: 20px;
-  -webkit-box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
-  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
-  border-radius: 3px;
-  margin: 10px 20px;
-  background-color: #fff;
-  max-width: 450px;
-  cursor: pointer;
-`;
-
-export const PostText = styled.p`
-  margin: 0;
-  margin-bottom: 10px;
-`;
-
-export const PostFooterText = styled.p`
-  margin: 0;
-  font-size: 14px;
-  color: #9e9e9e;
-`;
-
 export const UserName = styled.p`
   margin: 0;
   margin-left: 20px;

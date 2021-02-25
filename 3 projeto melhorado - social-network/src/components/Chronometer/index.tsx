@@ -35,7 +35,10 @@ interface ChronometerTime {
   seconds: number;
 }
 
-const Chronometer: React.ForwardRefRenderFunction<unknown> = ({}, ref) => {
+const Chronometer: React.ForwardRefRenderFunction<ChronometerHandles> = (
+  {},
+  ref,
+) => {
   const componentIsRendered = useRef(true);
 
   useEffect(() => {
