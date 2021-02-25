@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import PostCard from './Post';
 
 import api from '../../utils/api';
 
-import { Header } from '../../components';
+import { Header, Loading } from '../../components';
 
 import { Post } from '../../models';
 
@@ -12,6 +12,7 @@ import { Container, Content } from './styles';
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -26,17 +27,31 @@ const Home: React.FC = () => {
       }
     };
 
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
     getPosts();
   }, [dispatch]);
 
-  return (
-    <Container>
-      <Header />
+  const content = useMemo(() => {
+    if (loading) {
+      return <Loading style={{ marginTop: '40px' }} />;
+    }
+
+    return (
       <Content>
         {posts.map((post) => (
           <PostCard post={post} key={post.id} />
         ))}
       </Content>
+    );
+  }, [posts, loading]);
+
+  return (
+    <Container>
+      <Header />
+      {content}
     </Container>
   );
 };
