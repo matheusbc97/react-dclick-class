@@ -1,37 +1,21 @@
-import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useMemo, useRef, useCallback, useEffect } from 'react';
 
-import api from '../../utils/api';
 import { Header, Loading } from '../../components';
 import { Post } from '../../models';
+import { useGetPosts } from '../../hooks';
 
 import { Container, Content } from './styles';
 import PostCard from './Post';
 import PostDetailsModal, { PostDetailsModalHandles } from './PostDetailsModal';
 
 const Home: React.FC = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
-
   const modalRef = useRef<PostDetailsModalHandles>(null);
 
+  const { loading, posts, getPosts } = useGetPosts();
+
   useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const response = await api.get('posts');
-
-        setPosts(response.data);
-      } catch (error) {
-        console.log('error');
-      }
-    };
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
     getPosts();
-  }, []);
+  }, [getPosts]);
 
   const handlePostClick = useCallback((post: Post) => {
     modalRef.current?.open(post);

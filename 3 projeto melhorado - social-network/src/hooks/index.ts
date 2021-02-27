@@ -1,4 +1,5 @@
 import useUser from './useUser';
 import useWroteAt from './useWroteAt';
+import useGetPosts from './useGetPosts';
 
-export { useUser, useWroteAt };
+export { useUser, useWroteAt, useGetPosts };
