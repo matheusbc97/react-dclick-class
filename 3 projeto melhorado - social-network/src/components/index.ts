@@ -1,6 +1,6 @@
 import Chronometer from './Chronometer';
 import Input from './Input';
-import Toast from './Toast';
+import Toast from './ToastList';
 import ScreenLoading from './ScreenLoading';
 import Header from './Header';
 import Loading from './Loading';
