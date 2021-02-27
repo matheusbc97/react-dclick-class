@@ -28,7 +28,7 @@ const useLogin: () => (formDetails: FormDetails) => Promise<void> = () => {
         if (!userExists) {
           dispatch(
             showToastAction({
-              text: 'O usuário não existe',
+              text: 'Usuário Ou Senha Inválida',
               type: 'danger',
             }),
           );

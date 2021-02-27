@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
+import { useSelector } from 'react-redux';
 
 import {
   Container,
@@ -34,42 +35,32 @@ const Login: React.FC = () => {
           onSubmit={login}
           validationSchema={schema}
         >
-          {({ values, errors, handleChange, handleBlur, handleSubmit }) => (
-            <form onSubmit={handleSubmit}>
-              <LoginInput
-                placeholder="email"
-                type="email"
-                icon="user"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-                error={errors.email}
-                name="email"
-              />
-              <LoginInput
-                placeholder="password"
-                type="password"
-                icon="lock"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-                error={errors.password}
-                name="password"
-              />
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                }}
-              >
-                <LoginButton type="submit">Login</LoginButton>
-                <RegisterButton type="button" onClick={register}>
-                  Registre-se
-                </RegisterButton>
-              </div>
-            </form>
-          )}
+          <Form>
+            <LoginInput
+              placeholder="email"
+              type="email"
+              icon="user"
+              name="email"
+            />
+            <LoginInput
+              placeholder="password"
+              type="password"
+              icon="lock"
+              name="password"
+            />
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <LoginButton type="submit">Login</LoginButton>
+              <RegisterButton type="button" onClick={register}>
+                Registre-se
+              </RegisterButton>
+            </div>
+          </Form>
         </Formik>
       </Content>
     </Container>

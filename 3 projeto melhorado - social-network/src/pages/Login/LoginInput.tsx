@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { FaUser, FaLock } from 'react-icons/fa';
+import { Field, ErrorMessage } from 'formik';
 
 import styled from 'styled-components';
 
@@ -16,14 +17,14 @@ const Content = styled.div`
   padding: 0 5px;
 `;
 
-const InputHtml = styled.input`
+const InputHtml = styled(Field)`
   border: none;
   outline: none;
   width: 100%;
   padding: 10px;
 `;
 
-const ErrorText = styled.p`
+const ErrorText = styled(ErrorMessage)`
   font-size: small;
   color: red;
   margin: 0;
@@ -48,18 +49,18 @@ function LoginIcon({ icon }: LoginIconProps) {
 }
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  error: string | undefined;
   icon: IconType;
+  name: string;
 }
 
-function LoginInput({ error, icon, ...rest }: Props): JSX.Element {
+function LoginInput({ icon, name, ...rest }: Props): JSX.Element {
   return (
     <Container>
       <Content>
         <LoginIcon icon={icon} />
-        <InputHtml {...rest} />
+        <InputHtml name={name} {...rest} />
       </Content>
-      {!!error && <ErrorText>{error}</ErrorText>}
+      <ErrorText name={name} component="p" />
     </Container>
   );
 }
