@@ -1,22 +1,19 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import PostCard from './Post';
 
 import api from '../../utils/api';
-
-import { Header, Loading, Modal, ModalHandles } from '../../components';
-
+import { Header, Loading } from '../../components';
 import { Post } from '../../models';
 
 import { Container, Content } from './styles';
+import PostCard from './Post';
+import PostDetailsModal, { PostDetailsModalHandles } from './PostDetailsModal';
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const dispatch = useDispatch();
-
-  const modalRef = useRef<ModalHandles>(null);
+  const modalRef = useRef<PostDetailsModalHandles>(null);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -34,10 +31,10 @@ const Home: React.FC = () => {
     }, 2000);
 
     getPosts();
-  }, [dispatch]);
+  }, []);
 
-  const handlePostClick = useCallback(() => {
-    modalRef.current?.open();
+  const handlePostClick = useCallback((post: Post) => {
+    modalRef.current?.open(post);
   }, []);
 
   const content = useMemo(() => {
@@ -58,9 +55,7 @@ const Home: React.FC = () => {
     <Container>
       <Header />
       {content}
-      <Modal ref={modalRef}>
-        <div style={{ background: 'white', width: '300px', height: '300px' }} />
-      </Modal>
+      <PostDetailsModal ref={modalRef} />
     </Container>
   );
 };

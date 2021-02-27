@@ -1,10 +1,10 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useCallback } from 'react';
 import styled from 'styled-components';
 
-import formatDate from '../../utils/formatDate';
 import { Post } from '../../models';
+import { useWroteAt } from '../../hooks';
 
-const Container = styled.div`
+const Container = styled.article`
   padding: 20px;
   -webkit-box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
   box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
@@ -47,22 +47,22 @@ const FooterText = styled.p`
 
 interface Props {
   post: Post;
-  onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onClick: (post: Post) => void;
 }
 
 const PostCard: React.FC<Props> = ({ post, onClick }) => {
-  const wroteWhen = useMemo(() => `Escrito em ${formatDate(post.date)}`, [
-    post.date,
-  ]);
+  const wroteAt = useWroteAt(post.date);
+
+  const handleOnClick = useCallback(() => onClick(post), [post, onClick]);
 
   return (
-    <Container onClick={onClick}>
+    <Container onClick={handleOnClick}>
       <Header>
         <div />
         <p>{post.user}</p>
       </Header>
       <Text>{post.text}</Text>
-      <FooterText>{wroteWhen}</FooterText>
+      <FooterText>{wroteAt}</FooterText>
     </Container>
   );
 };
