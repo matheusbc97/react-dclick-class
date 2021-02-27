@@ -5,8 +5,10 @@ import { Post } from '../../models';
 import { useGetPosts } from '../../hooks';
 
 import { Container, Content } from './styles';
-import PostCard from './Post';
-import PostDetailsModal, { PostDetailsModalHandles } from './PostDetailsModal';
+import PostCard from './components/Post';
+import PostDetailsModal, {
+  PostDetailsModalHandles,
+} from './components/PostDetailsModal';
 
 const Home: React.FC = () => {
   const modalRef = useRef<PostDetailsModalHandles>(null);

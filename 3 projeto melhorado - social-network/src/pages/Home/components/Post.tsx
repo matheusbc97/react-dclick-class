@@ -1,8 +1,8 @@
 import React, { memo, useCallback } from 'react';
 import styled from 'styled-components';
 
-import { Post } from '../../models';
-import { useWroteAt } from '../../hooks';
+import { Post } from '../../../models';
+import { useWroteAt } from '../../../hooks';
 
 const Container = styled.article`
   padding: 20px;

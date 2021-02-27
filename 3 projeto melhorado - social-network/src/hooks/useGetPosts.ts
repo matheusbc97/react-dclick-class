@@ -35,7 +35,7 @@ const useGetPosts: () => UseGetPostsReturn = () => {
           loading: false,
           posts: response.data,
         }));
-      }, 2000);
+      }, 1000);
     } catch (error) {
       setState((oldState) => ({
         ...oldState,

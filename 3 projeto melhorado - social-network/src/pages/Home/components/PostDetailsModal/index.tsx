@@ -6,72 +6,27 @@ import {
   useState,
   memo,
 } from 'react';
-import styled from 'styled-components';
 import { FaTimesCircle } from 'react-icons/fa';
 
-import { Modal, ModalHandles } from '../../components';
-import { useWroteAt } from '../../hooks';
-import { Post } from '../../models';
+import { Modal, ModalHandles } from '../../../../components';
+import { useWroteAt } from '../../../../hooks';
+import { Post } from '../../../../models';
+
+import {
+  Avatar,
+  CloseButton,
+  Container,
+  Content,
+  Header,
+  Text,
+  UserName,
+  WroteAtText,
+} from './styles';
 
 export interface PostDetailsModalHandles {
   open: (post: Post) => void;
   close: () => void;
 }
-
-const Container = styled.div`
-  background: white;
-  width: 75%;
-  max-width: 600px;
-  max-height: 75%;
-  padding: 30px;
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Avatar = styled.div`
-  background-color: #bdbdbd;
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-`;
-
-const UserName = styled.p`
-  font-weight: bold;
-  font-size: 20px;
-  margin: 10px 0;
-`;
-
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  align-self: flex-end;
-`;
-
-const Text = styled.p`
-  margin: 5px 0;
-`;
-
-const WroteAtText = styled.p`
-  margin: 0;
-  margin-top: 15px;
-  font-size: 16px;
-  color: #9e9e9e;
-  align-self: flex-end;
-`;
-
-const Content = styled.div`
-  overflow-y: auto;
-  height: 100%;
-`;
 
 const PostDetails: React.ForwardRefRenderFunction<PostDetailsModalHandles> = (
   {},
