@@ -1,7 +1,11 @@
 /* eslint-disable no-useless-catch */
 import { useState, createContext, useCallback } from 'react';
 import api from '../utils/api';
-import { saveUserToStorage, resetUserInStorage } from '../utils/userStorage';
+import {
+  saveUserToStorage,
+  resetUserInStorage,
+  getUser,
+} from '../utils/userStorage';
 import { User } from '../models';
 
 type Authenticate = (formDetails: {
@@ -21,7 +25,7 @@ export interface UserContextData {
 const UserContext = createContext({} as UserContextData);
 
 const UserProvider: React.FC = ({ children }) => {
-  const [userState, setUserState] = useState<User | null>(null);
+  const [userState, setUserState] = useState<User | null>(() => getUser());
 
   const setUser: SetUser = useCallback((user: User) => {
     api.interceptors.request.use(

@@ -4,6 +4,30 @@ import styled from 'styled-components';
 import { Post } from '../../../models';
 import { useWroteAt } from '../../../hooks';
 
+interface Props {
+  post: Post;
+  onClick: (post: Post) => void;
+}
+
+const PostCard: React.FC<Props> = ({ post, onClick }) => {
+  const wroteAt = useWroteAt(post.date);
+
+  const handleOnClick = useCallback(() => onClick(post), [post, onClick]);
+
+  return (
+    <Container onClick={handleOnClick}>
+      <Header>
+        <div />
+        <p>{post.user}</p>
+      </Header>
+      <Text>{post.text}</Text>
+      <FooterText>{wroteAt}</FooterText>
+    </Container>
+  );
+};
+
+export default memo(PostCard);
+
 const Container = styled.article`
   padding: 20px;
   -webkit-box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
@@ -44,27 +68,3 @@ const FooterText = styled.p`
   color: #9e9e9e;
   text-align: end;
 `;
-
-interface Props {
-  post: Post;
-  onClick: (post: Post) => void;
-}
-
-const PostCard: React.FC<Props> = ({ post, onClick }) => {
-  const wroteAt = useWroteAt(post.date);
-
-  const handleOnClick = useCallback(() => onClick(post), [post, onClick]);
-
-  return (
-    <Container onClick={handleOnClick}>
-      <Header>
-        <div />
-        <p>{post.user}</p>
-      </Header>
-      <Text>{post.text}</Text>
-      <FooterText>{wroteAt}</FooterText>
-    </Container>
-  );
-};
-
-export default memo(PostCard);
