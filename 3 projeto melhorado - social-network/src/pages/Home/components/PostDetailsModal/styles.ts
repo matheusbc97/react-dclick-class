@@ -26,7 +26,7 @@ export const Background = styled.div`
     opacity: 0;
 
     ${Container} {
-      background: red;
+      transform: translateY(100%);
     }
   }
 
@@ -35,7 +35,8 @@ export const Background = styled.div`
     transition: opacity 300ms;
 
     ${Container} {
-      background: red;
+      transform: translateY(0);
+      transition: transform 200ms;
     }
   }
 
@@ -43,7 +44,7 @@ export const Background = styled.div`
     opacity: 1;
 
     ${Container} {
-      background: red;
+      transform: translateY(0);
     }
   }
 
@@ -53,7 +54,8 @@ export const Background = styled.div`
     transition: opacity 300ms;
 
     ${Container} {
-      background: red;
+      transform: translateY(100%);
+      transition: transform 200ms;
     }
   }
 `;

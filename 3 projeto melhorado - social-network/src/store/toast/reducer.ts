@@ -36,7 +36,10 @@ export default function toastReducer(
         type: action.payload.type,
       };
     case HIDE_TOAST:
-      return toastInitialState;
+      return {
+        ...state,
+        active: false,
+      };
     default:
       return state;
   }
