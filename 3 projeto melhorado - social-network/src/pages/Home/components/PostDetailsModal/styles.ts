@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+const transitionName = 'modal';
+
 export const Container = styled.div`
   background: white;
   width: 75%;
@@ -9,6 +11,51 @@ export const Container = styled.div`
   border-radius: 4px;
   display: flex;
   flex-direction: column;
+`;
+
+export const Background = styled.div`
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.${transitionName}-enter {
+    opacity: 0;
+
+    ${Container} {
+      background: red;
+    }
+  }
+
+  &.${transitionName}-enter-active {
+    opacity: 1;
+    transition: opacity 300ms;
+
+    ${Container} {
+      background: red;
+    }
+  }
+
+  &.${transitionName}-exit {
+    opacity: 1;
+
+    ${Container} {
+      background: red;
+    }
+  }
+
+  &.${transitionName}-exit-active {
+    opacity: 0;
+
+    transition: opacity 300ms;
+
+    ${Container} {
+      background: red;
+    }
+  }
 `;
 
 export const Header = styled.div`
