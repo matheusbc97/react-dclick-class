@@ -7,7 +7,6 @@ let toastId = 0;
 
 const timeoutHideToast = (functionToTimeout: any, id: number) => {
   const idCopy = id;
-  console.log('idc', idCopy);
   setTimeout(() => {
     functionToTimeout(idCopy);
   }, 3000);
@@ -21,7 +20,6 @@ export function showToastAction(
       type: SHOW_TOAST,
       payload: {
         ...toastOptions,
-        text: toastOptions.text + toastId,
         id: toastId,
       },
     });

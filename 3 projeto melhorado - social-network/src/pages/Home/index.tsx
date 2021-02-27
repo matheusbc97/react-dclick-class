@@ -3,6 +3,7 @@ import { useMemo, useRef, useCallback, useEffect } from 'react';
 import { Header, Loading } from '../../components';
 import { Post } from '../../models';
 import { useGetPosts } from '../../hooks';
+import { ErrorIndicator } from '../../components';
 
 import { Container, Content } from './styles';
 import PostCard from './components/Post';
@@ -13,7 +14,7 @@ import PostDetailsModal, {
 const Home: React.FC = () => {
   const modalRef = useRef<PostDetailsModalHandles>(null);
 
-  const { loading, posts, getPosts } = useGetPosts();
+  const { loading, posts, getPosts, error } = useGetPosts();
 
   useEffect(() => {
     getPosts();
@@ -24,6 +25,10 @@ const Home: React.FC = () => {
   }, []);
 
   const content = useMemo(() => {
+    if (error) {
+      return <ErrorIndicator />;
+    }
+
     if (loading) {
       return <Loading style={{ marginTop: '40px' }} />;
     }

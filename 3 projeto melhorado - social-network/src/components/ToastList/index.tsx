@@ -15,8 +15,6 @@ const Container = styled.div`
 const ToastList: React.FC = () => {
   const toasts = useSelector((state: RootState) => state.toast);
 
-  console.log('tosat', toasts);
-
   return (
     <Container>
       <TransitionGroup className="toast-list">

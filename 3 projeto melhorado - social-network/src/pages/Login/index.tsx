@@ -40,9 +40,18 @@ const Login: React.FC = () => {
     async (formDetails: FormDetails) => {
       dispatch(showScreenLoadingAction());
       try {
-        await authenticate(formDetails);
+        const userExists = await authenticate(formDetails);
 
         dispatch(hideScreenLoadingAction());
+
+        if (!userExists) {
+          dispatch(
+            showToastAction({
+              text: 'O usuário não existe',
+              type: 'danger',
+            }),
+          );
+        }
       } catch (error) {
         dispatch(hideScreenLoadingAction());
 

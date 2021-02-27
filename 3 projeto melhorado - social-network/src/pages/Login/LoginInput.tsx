@@ -9,19 +9,18 @@ const Container = styled.div`
 
 const Content = styled.div`
   display: flex;
-  margin: 5px 0;
   align-items: center;
   border: 1px solid #e6e6e6;
   width: 100%;
-  padding: 5px 5px;
   border-radius: 3px;
+  padding: 0 5px;
 `;
 
 const InputHtml = styled.input`
   border: none;
   outline: none;
   width: 100%;
-  margin-left: 10px;
+  padding: 10px;
 `;
 
 const ErrorText = styled.p`
@@ -29,6 +28,7 @@ const ErrorText = styled.p`
   color: red;
   margin: 0;
   margin-left: 5px;
+  margin-top: 5px;
 `;
 
 type IconType = 'user' | 'lock';

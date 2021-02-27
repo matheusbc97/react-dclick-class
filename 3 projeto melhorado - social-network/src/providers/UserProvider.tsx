@@ -52,10 +52,15 @@ const UserProvider: React.FC = ({ children }) => {
             userData.password === formDetails.password,
         );
 
-        saveUserToStorage(user);
+        const userExists = !!user;
 
-        setUser(user);
-        return !!user;
+        if (userExists) {
+          saveUserToStorage(user);
+
+          setUser(user);
+        }
+
+        return userExists;
       } catch (error) {
         throw error;
       }
