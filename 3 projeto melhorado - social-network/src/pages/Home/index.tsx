@@ -40,7 +40,7 @@ const Home: React.FC = () => {
         ))}
       </Content>
     );
-  }, [posts, loading, handlePostClick]);
+  }, [posts, loading, handlePostClick, error]);
 
   return (
     <Container>

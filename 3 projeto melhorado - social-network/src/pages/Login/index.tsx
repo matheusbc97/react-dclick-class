@@ -1,15 +1,6 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import * as yup from 'yup';
 import { Formik } from 'formik';
-
-import { useDispatch } from 'react-redux';
-import { showToastAction } from '../../store/toast/actions';
-import {
-  showScreenLoadingAction,
-  hideScreenLoadingAction,
-} from '../../store/screenLoading/actions';
-import useUser from '../../hooks/useUser';
 
 import {
   Container,
@@ -20,66 +11,19 @@ import {
 } from './styles';
 
 import LoginInput from './LoginInput';
-
-interface FormDetails {
-  email: string;
-  password: string;
-}
+import useLogin from './hooks/useLogin';
+import useFormDetailsSchema from './hooks/useFormDetailsSchema';
 
 const Login: React.FC = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const register = useCallback(() => {
     history.push('register');
   }, [history]);
 
-  const { authenticate } = useUser();
+  const login = useLogin();
 
-  const login = useCallback(
-    async (formDetails: FormDetails) => {
-      dispatch(showScreenLoadingAction());
-      try {
-        const userExists = await authenticate(formDetails);
-
-        dispatch(hideScreenLoadingAction());
-
-        if (!userExists) {
-          dispatch(
-            showToastAction({
-              text: 'O usuário não existe',
-              type: 'danger',
-            }),
-          );
-        }
-      } catch (error) {
-        dispatch(hideScreenLoadingAction());
-
-        dispatch(
-          showToastAction({
-            text: 'Ocorreu Um erro inesperado',
-            type: 'danger',
-          }),
-        );
-
-        console.log('error', error);
-      }
-    },
-    [dispatch, authenticate],
-  );
-
-  const schema = useMemo(() => {
-    return yup.object().shape({
-      email: yup
-        .string()
-        .email('O email precisa ser valido')
-        .required('Campo Obrigatório'),
-      password: yup
-        .string()
-        .min(3, 'A senha deve conter ao menos 3 caracteres')
-        .required('Campo Obrigatório'),
-    });
-  }, []);
+  const schema = useFormDetailsSchema();
 
   return (
     <Container>
