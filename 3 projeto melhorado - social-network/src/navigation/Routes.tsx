@@ -3,9 +3,9 @@ import { Switch, Route } from 'react-router-dom';
 import useUser from 'shared/hooks/useUser';
 import { Toast, ScreenLoading } from 'shared/components';
 
-import Register from '../pages/Register';
-import Login from '../pages/Login';
-import Home from '../pages/Home';
+import Register from 'modules/account/pages/Register';
+import Login from 'modules/account/pages/Login';
+import Home from 'modules/posts/pages/Home';
 
 import useRedirectUser from './hooks/useRedirectUser';
 

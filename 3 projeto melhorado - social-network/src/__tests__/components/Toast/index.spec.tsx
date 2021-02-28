@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 
 import * as reactRedux from 'react-redux';
-import Toast from '../../../components/ToastList/Toast';
+import Toast from 'shared/components/ToastList/Toast';
 
 const mockedDispatch = jest.fn();
 
