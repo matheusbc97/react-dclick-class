@@ -17,6 +17,7 @@ export const Background = styled.div`
   height: 100%;
   width: 100%;
   position: fixed;
+  z-index: 999;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
@@ -64,13 +65,6 @@ export const Header = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-export const Avatar = styled.div`
-  background-color: #bdbdbd;
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
 `;
 
 export const UserName = styled.p`

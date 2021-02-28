@@ -5,9 +5,11 @@ import { Toast, ScreenLoading } from 'shared/components';
 
 import Register from 'modules/account/pages/Register';
 import Login from 'modules/account/pages/Login';
+import Profile from 'modules/account/pages/Profile';
 import Home from 'modules/posts/pages/PostsList';
 
 import useRedirectUser from './hooks/useRedirectUser';
+import Header from './components/Header';
 
 const Routes: React.FC = () => {
   const { user } = useUser();
@@ -25,9 +27,15 @@ const Routes: React.FC = () => {
         <Route exact path="/register">
           <Register />
         </Route>
-        <Route exact path="/home">
-          <Home />
-        </Route>
+        <>
+          <Header />
+          <Route exact path="/home">
+            <Home />
+          </Route>
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
+        </>
       </Switch>
     </>
   );

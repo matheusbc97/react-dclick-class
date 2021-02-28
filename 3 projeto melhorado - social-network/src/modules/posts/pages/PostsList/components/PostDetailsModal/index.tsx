@@ -10,9 +10,9 @@ import { CSSTransition } from 'react-transition-group';
 
 import { useWroteAt } from 'shared/hooks';
 import { Post } from 'shared/models';
+import { Avatar } from 'shared/components';
 
 import {
-  Avatar,
   CloseButton,
   Container,
   Content,

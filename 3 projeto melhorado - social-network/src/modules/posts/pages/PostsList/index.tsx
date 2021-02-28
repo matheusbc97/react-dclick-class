@@ -1,7 +1,7 @@
 import { useMemo, useRef, useCallback, useEffect } from 'react';
 
 import { useGetPosts } from 'shared/hooks';
-import { Header, Loading, ErrorIndicator } from 'shared/components';
+import { Loading, ErrorIndicator } from 'shared/components';
 import { Post } from 'shared/models';
 
 import { Container, Content } from './styles';
@@ -42,11 +42,10 @@ const PostsList: React.FC = () => {
   }, [posts, loading, handlePostClick, error]);
 
   return (
-    <Container>
-      <Header />
-      {content}
+    <>
+      <Container>{content}</Container>
       <PostDetailsModal ref={modalRef} />
-    </Container>
+    </>
   );
 };
 

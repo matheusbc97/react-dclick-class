@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { useWroteAt } from 'shared/hooks';
 import { Post } from 'shared/models';
+import { Avatar } from 'shared/components';
 
 interface Props {
   post: Post;
@@ -17,7 +18,7 @@ const PostCard: React.FC<Props> = ({ post, onClick }) => {
   return (
     <Container onClick={handleOnClick}>
       <Header>
-        <div />
+        <Avatar size={20} />
         <p>{post.user}</p>
       </Header>
       <Text>{post.text}</Text>
@@ -43,13 +44,6 @@ const Container = styled.article`
 const Header = styled.div`
   display: flex;
   align-items: center;
-
-  div {
-    background-color: #afafaf;
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-  }
 
   p {
     font-weight: bold;
