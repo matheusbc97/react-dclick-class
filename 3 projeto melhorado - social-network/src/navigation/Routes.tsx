@@ -5,7 +5,7 @@ import { Toast, ScreenLoading } from 'shared/components';
 
 import Register from 'modules/account/pages/Register';
 import Login from 'modules/account/pages/Login';
-import Home from 'modules/posts/pages/Home';
+import Home from 'modules/posts/pages/PostsList';
 
 import useRedirectUser from './hooks/useRedirectUser';
 

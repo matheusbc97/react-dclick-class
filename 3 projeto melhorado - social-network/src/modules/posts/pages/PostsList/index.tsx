@@ -10,7 +10,7 @@ import PostDetailsModal, {
   PostDetailsModalHandles,
 } from './components/PostDetailsModal';
 
-const Home: React.FC = () => {
+const PostsList: React.FC = () => {
   const modalRef = useRef<PostDetailsModalHandles>(null);
 
   const { loading, posts, getPosts, error } = useGetPosts();
@@ -50,4 +50,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default PostsList;
