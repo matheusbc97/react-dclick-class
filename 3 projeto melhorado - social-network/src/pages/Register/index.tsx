@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import Input from '../../components/Input';
-import useFormDetails from './useFormDetails';
+import useFormDetails from './hooks/useFormDetails';
 import { Container, Content, RegisterButton, Title } from './styles';
 import api from '../../utils/api';
 import useUser from '../../hooks/useUser';

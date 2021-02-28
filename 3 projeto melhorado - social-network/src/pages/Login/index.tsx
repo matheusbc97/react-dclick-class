@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Formik, Form } from 'formik';
-import { useSelector } from 'react-redux';
 
 import {
   Container,
@@ -11,7 +10,7 @@ import {
   Title,
 } from './styles';
 
-import LoginInput from './LoginInput';
+import LoginInput from './components/LoginInput';
 import useLogin from './hooks/useLogin';
 import useFormDetailsSchema from './hooks/useFormDetailsSchema';
 
