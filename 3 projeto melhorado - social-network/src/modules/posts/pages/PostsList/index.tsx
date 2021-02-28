@@ -1,10 +1,10 @@
-import { useMemo, useRef, useCallback, useEffect } from 'react';
+import { useMemo, useRef, useCallback, useEffect, useState } from 'react';
 
-import { useGetPosts } from 'shared/hooks';
-import { Loading, ErrorIndicator } from 'shared/components';
+import { useGetPosts, useCreatePost } from 'shared/hooks';
+import { Loading, ErrorIndicator, Button } from 'shared/components';
 import { Post } from 'shared/models';
 
-import { Container, Content } from './styles';
+import { Container, Content, CreateNewPostContainer, Title } from './styles';
 import PostCard from './components/Post';
 import PostDetailsModal, {
   PostDetailsModalHandles,
@@ -14,6 +14,9 @@ const PostsList: React.FC = () => {
   const modalRef = useRef<PostDetailsModalHandles>(null);
 
   const { loading, posts, getPosts, error } = useGetPosts();
+  const [newPostText, setNewPostText] = useState('');
+
+  const createPost = useCreatePost();
 
   useEffect(() => {
     getPosts();
@@ -22,6 +25,12 @@ const PostsList: React.FC = () => {
   const handlePostClick = useCallback((post: Post) => {
     modalRef.current?.open(post);
   }, []);
+
+  const handleCreatePostClick = useCallback(async () => {
+    await createPost(newPostText);
+    setNewPostText('');
+    getPosts();
+  }, [newPostText, createPost, getPosts]);
 
   const content = useMemo(() => {
     if (error) {
@@ -34,12 +43,31 @@ const PostsList: React.FC = () => {
 
     return (
       <Content>
+        <CreateNewPostContainer>
+          <Title>Criar Novo Post</Title>
+          <textarea
+            value={newPostText}
+            onChange={(e) => setNewPostText(e.target.value)}
+          />
+          <Button onClick={handleCreatePostClick}>Salvar</Button>
+        </CreateNewPostContainer>
+        <Title style={{ alignSelf: 'flex-start', marginBottom: '5px' }}>
+          Lista de Posts
+        </Title>
         {posts.map((post) => (
           <PostCard post={post} key={post.id} onClick={handlePostClick} />
         ))}
       </Content>
     );
-  }, [posts, loading, handlePostClick, error]);
+  }, [
+    posts,
+    loading,
+    error,
+    newPostText,
+    handlePostClick,
+    setNewPostText,
+    handleCreatePostClick,
+  ]);
 
   return (
     <>

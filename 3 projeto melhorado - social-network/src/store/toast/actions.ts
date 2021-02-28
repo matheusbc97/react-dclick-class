@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { SHOW_TOAST, HIDE_TOAST } from './actionTypes';
 
@@ -10,6 +12,48 @@ const timeoutHideToast = (functionToTimeout: any, id: number) => {
   setTimeout(() => {
     functionToTimeout(idCopy);
   }, 3000);
+};
+
+export const useToast: () => {
+  showToast: (toastOptions: ToastOptions) => void;
+  hideToast: (id: number) => void;
+} = () => {
+  const dispatch = useDispatch();
+
+  const hideToast = useCallback(
+    (id: number) => {
+      dispatch({
+        type: HIDE_TOAST,
+        payload: id,
+      });
+    },
+    [dispatch],
+  );
+
+  const showToast = useCallback(
+    (toastOptions: ToastOptions) => {
+      dispatch({
+        type: SHOW_TOAST,
+        payload: {
+          ...toastOptions,
+          id: toastId,
+        },
+      });
+
+      timeoutHideToast((copiedId: any) => {
+        dispatch(hideToastAction(copiedId));
+      }, toastId);
+
+      // eslint-disable-next-line no-plusplus
+      toastId++;
+    },
+    [dispatch],
+  );
+
+  return {
+    showToast,
+    hideToast,
+  };
 };
 
 export function showToastAction(

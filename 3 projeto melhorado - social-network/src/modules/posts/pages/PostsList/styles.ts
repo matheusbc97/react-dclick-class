@@ -8,11 +8,10 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  margin: 10px 0;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 440px;
 `;
 
 export const ExitButton = styled.button`
@@ -44,4 +43,33 @@ export const Header = styled.div`
 export const UserName = styled.p`
   margin: 0;
   margin-left: 20px;
+`;
+
+export const Title = styled.p`
+  margin: 0;
+  font-weight: bold;
+  color: #424242;
+`;
+
+export const CreateNewPostContainer = styled.div`
+  margin: 20px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  textarea {
+    margin-top: 10px;
+    border: #e0e0e0 1px solid;
+    border-radius: 2px;
+    outline: none;
+    padding: 5px 5px;
+    height: 77px;
+    width: 430px;
+    resize: none;
+  }
+
+  Button {
+    align-self: flex-end;
+    margin-top: 10px;
+  }
 `;
