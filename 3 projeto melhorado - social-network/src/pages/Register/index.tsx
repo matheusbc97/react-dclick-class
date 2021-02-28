@@ -2,11 +2,12 @@ import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-import Input from '../../components/Input';
+import useUser from 'shared/hooks/useUser';
+import Input from 'shared/components/Input';
+import api from 'shared/utils/api';
 import useFormDetails from './hooks/useFormDetails';
+
 import { Container, Content, RegisterButton, Title } from './styles';
-import api from '../../utils/api';
-import useUser from '../../hooks/useUser';
 
 interface FormDetails {
   email: string;

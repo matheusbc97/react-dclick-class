@@ -1,6 +1,6 @@
 import { useLayoutEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { User } from '../../models';
+import { User } from 'shared/models';
 
 const useRedirectUser = (user: User | null) => {
   const history = useHistory();

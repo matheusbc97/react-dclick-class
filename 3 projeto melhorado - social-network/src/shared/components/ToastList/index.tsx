@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import { RootState } from '../../store/configureStore';
+import { RootState } from 'store/configureStore';
 import Toast from './Toast';
 
 const Container = styled.div`

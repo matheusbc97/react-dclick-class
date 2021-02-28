@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/configureStore';
+import { RootState } from 'store/configureStore';
 
 import { Background, Container } from './styles';
 

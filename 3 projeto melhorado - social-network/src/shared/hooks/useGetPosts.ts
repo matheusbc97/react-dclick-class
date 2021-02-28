@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
-import { Post } from '../models';
-import api from '../utils/api';
+
+import { Post } from 'shared/models';
+import api from 'shared/utils/api';
 
 interface PostsState {
   posts: Post[];

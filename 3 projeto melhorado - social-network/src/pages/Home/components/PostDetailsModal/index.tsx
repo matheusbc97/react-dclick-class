@@ -8,8 +8,8 @@ import {
 import { FaTimesCircle } from 'react-icons/fa';
 import { CSSTransition } from 'react-transition-group';
 
-import { useWroteAt } from '../../../../hooks';
-import { Post } from '../../../../models';
+import { useWroteAt } from 'shared/hooks';
+import { Post } from 'shared/models';
 
 import {
   Avatar,

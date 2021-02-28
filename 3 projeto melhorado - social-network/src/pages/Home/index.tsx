@@ -1,9 +1,8 @@
 import { useMemo, useRef, useCallback, useEffect } from 'react';
 
-import { Header, Loading } from '../../components';
-import { Post } from '../../models';
-import { useGetPosts } from '../../hooks';
-import { ErrorIndicator } from '../../components';
+import { useGetPosts } from 'shared/hooks';
+import { Header, Loading, ErrorIndicator } from 'shared/components';
+import { Post } from 'shared/models';
 
 import { Container, Content } from './styles';
 import PostCard from './components/Post';

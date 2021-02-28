@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
-import { ToastOptions } from '../../store/toast/reducer';
+import { ToastOptions } from 'store/toast/reducer';
 
 interface ContainerProps {
   color: string;

@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react';
 
 import styled from 'styled-components';
 
+import useUser from 'shared/hooks/useUser';
 import Chronometer, { ChronometerHandles } from '../Chronometer';
-import useUser from '../../hooks/useUser';
 
 const Header: React.FC = () => {
   const chronometerRef = useRef<ChronometerHandles>(null);

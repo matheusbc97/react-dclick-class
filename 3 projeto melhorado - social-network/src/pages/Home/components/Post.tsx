@@ -1,8 +1,8 @@
 import React, { memo, useCallback } from 'react';
 import styled from 'styled-components';
 
-import { Post } from '../../../models';
-import { useWroteAt } from '../../../hooks';
+import { useWroteAt } from 'shared/hooks';
+import { Post } from 'shared/models';
 
 interface Props {
   post: Post;

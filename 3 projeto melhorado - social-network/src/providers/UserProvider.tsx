@@ -1,12 +1,13 @@
 /* eslint-disable no-useless-catch */
 import { useState, createContext, useCallback } from 'react';
-import api from '../utils/api';
+
+import { User } from 'shared/models';
+import api from 'shared/utils/api';
 import {
   saveUserToStorage,
   resetUserInStorage,
   getUser,
-} from '../utils/userStorage';
-import { User } from '../models';
+} from 'shared/utils/userStorage';
 
 type Authenticate = (formDetails: {
   email: string;

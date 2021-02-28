@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import formatDate from '../utils/formatDate';
+import formatDate from 'shared/utils/formatDate';
 
 const useWroteAt: (date: string | null | undefined) => string = (date) => {
   const wroteAt = useMemo(() => {

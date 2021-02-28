@@ -1,4 +1,4 @@
-import { User } from '../models/User';
+import { User } from 'shared/models/User';
 
 const userKey = '@aula-react/user';
 

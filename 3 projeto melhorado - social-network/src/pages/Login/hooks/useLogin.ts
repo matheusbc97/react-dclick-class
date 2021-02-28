@@ -1,12 +1,12 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
+import useUser from 'shared/hooks/useUser';
 import { showToastAction } from '../../../store/toast/actions';
 import {
   showScreenLoadingAction,
   hideScreenLoadingAction,
 } from '../../../store/screenLoading/actions';
-import useUser from '../../../hooks/useUser';
 
 interface FormDetails {
   email: string;
