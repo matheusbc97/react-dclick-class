@@ -34,7 +34,7 @@ const Container = styled.article`
   -webkit-box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
   box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
-  margin: 10px 20px;
+  margin: 10px 0;
   background-color: #fff;
   max-width: 400px;
   width: 100%;

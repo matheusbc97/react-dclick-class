@@ -16,29 +16,33 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <Container>
-      <UserDataContainer to="/profile">
-        <Avatar size={18} />
-        <UserName>Olá, {user?.name}</UserName>
-      </UserDataContainer>
+    <div>
+      <Container>
+        <UserDataContainer to="/profile">
+          <Avatar size={18} />
+          <UserName>Olá, {user?.name}</UserName>
+        </UserDataContainer>
 
-      <Chronometer ref={chronometerRef} />
+        <Chronometer ref={chronometerRef} />
 
-      <div style={{ flex: 1 }} />
+        <div style={{ flex: 1 }} />
 
-      <ExitButton onClick={resetUser}>Sair</ExitButton>
-    </Container>
+        <ExitButton onClick={resetUser}>Sair</ExitButton>
+      </Container>
+    </div>
   );
 };
 
 export default Header;
+
+export const HEADER_HEIGHT = 76;
 
 const ExitButton = styled(Button)`
   margin-right: 20px;
 `;
 
 const Container = styled.div`
-  padding: 10px 0;
+  height: ${HEADER_HEIGHT}px;
   background: #eee;
   width: 100%;
   display: flex;

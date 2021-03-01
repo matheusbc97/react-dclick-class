@@ -73,3 +73,10 @@ export const CreateNewPostContainer = styled.div`
     margin-top: 10px;
   }
 `;
+
+export const ListContainer = styled.div`
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
