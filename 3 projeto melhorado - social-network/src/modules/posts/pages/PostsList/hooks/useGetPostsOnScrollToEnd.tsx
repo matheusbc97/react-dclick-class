@@ -1,10 +1,11 @@
 import { HEADER_HEIGHT } from 'navigation/components/Header';
 import { useCallback } from 'react';
 
-const useOnScrollToEnd: (
+const useGetPostsOnScrollToEnd: (
   divRef: React.RefObject<HTMLDivElement>,
-  callback: (...params: any[]) => unknown,
-) => () => void = (divRef, callback: (...params: any[]) => unknown) => {
+  getPosts: () => void,
+  cantLoad: boolean,
+) => () => void = (divRef, getPosts, cantLoad) => {
   const onScrollToEnd = useCallback(() => {
     const offsetHeight = divRef.current?.offsetHeight
       ? divRef.current?.offsetHeight
@@ -14,11 +15,13 @@ const useOnScrollToEnd: (
       window.innerHeight + document.documentElement.scrollTop - HEADER_HEIGHT >
       offsetHeight - 300
     ) {
-      callback();
+      if (cantLoad) return;
+
+      getPosts();
     }
-  }, [callback, divRef]);
+  }, [getPosts, divRef, cantLoad]);
 
   return onScrollToEnd;
 };
 
-export default useOnScrollToEnd;
+export default useGetPostsOnScrollToEnd;

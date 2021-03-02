@@ -1,40 +1,38 @@
-import { useMemo, useRef, useCallback, useEffect, useState } from 'react';
+import { useMemo, useRef, useCallback, useEffect } from 'react';
 
 import { useGetPosts, useCreatePost } from 'shared/hooks';
-import { Loading, ErrorIndicator, Button } from 'shared/components';
+import { Loading, ErrorIndicator } from 'shared/components';
 import { Post } from 'shared/models';
 
-import {
-  Container,
-  Content,
-  CreateNewPostContainer,
-  Title,
-  ListContainer,
-} from './styles';
 import PostCard from './components/Post';
 import PostDetailsModal, {
   PostDetailsModalHandles,
 } from './components/PostDetailsModal';
-import useOnScrollToEnd from './hooks/useOnScrollToEnd';
+import CreateNewPost from './components/CreateNewPost';
+import useGetPostsOnScrollToEnd from './hooks/useGetPostsOnScrollToEnd';
+
+import { Container, Content, Title, ListContainer } from './styles';
 
 const PostsList: React.FC = () => {
   const modalRef = useRef<PostDetailsModalHandles>(null);
-
-  const { loading, posts, getPosts, error, hasLoadedSomeTime } = useGetPosts();
-  const [newPostText, setNewPostText] = useState('');
   const divRef = useRef<HTMLDivElement>(null);
 
+  const { loading, posts, getPosts, error, hasLoadedSomeTime } = useGetPosts();
   const createPost = useCreatePost();
 
-  const getPostsOnScroll = useCallback(() => {
-    const canLoad = loading || !!error;
+  const cantLoad = useMemo(() => loading || !!error, [loading, error]);
 
-    if (canLoad) return;
+  const getPostsOnScroll = useCallback(() => {
+    if (cantLoad) return;
 
     getPosts();
-  }, [error, getPosts, loading]);
+  }, [getPosts, cantLoad]);
 
-  const onScrollToEnd = useOnScrollToEnd(divRef, getPostsOnScroll);
+  const onScrollToEnd = useGetPostsOnScrollToEnd(
+    divRef,
+    getPostsOnScroll,
+    cantLoad,
+  );
 
   useEffect(() => {
     window.onscroll = onScrollToEnd;
@@ -48,11 +46,13 @@ const PostsList: React.FC = () => {
     modalRef.current?.open(post);
   }, []);
 
-  const handleCreatePostClick = useCallback(async () => {
-    await createPost(newPostText);
-    setNewPostText('');
-    getPosts();
-  }, [newPostText, createPost, getPosts]);
+  const handleCreatePostClick = useCallback(
+    async (newPostText: string) => {
+      await createPost(newPostText);
+      getPosts();
+    },
+    [createPost, getPosts],
+  );
 
   const content = useMemo(() => {
     if (error) {
@@ -61,14 +61,7 @@ const PostsList: React.FC = () => {
 
     return (
       <Content ref={divRef}>
-        <CreateNewPostContainer>
-          <Title>Criar Novo Post</Title>
-          <textarea
-            value={newPostText}
-            onChange={(e) => setNewPostText(e.target.value)}
-          />
-          <Button onClick={handleCreatePostClick}>Salvar</Button>
-        </CreateNewPostContainer>
+        <CreateNewPost onCreatePostClick={handleCreatePostClick} />
         <Title style={{ alignSelf: 'flex-start', marginBottom: '5px' }}>
           Lista de Posts
         </Title>
@@ -87,9 +80,7 @@ const PostsList: React.FC = () => {
     posts,
     loading,
     error,
-    newPostText,
     handlePostClick,
-    setNewPostText,
     handleCreatePostClick,
     hasLoadedSomeTime,
   ]);

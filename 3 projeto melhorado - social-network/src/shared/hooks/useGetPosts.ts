@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 
 import { Post } from 'shared/models';
 import api from 'shared/utils/api';
@@ -68,6 +68,10 @@ const useGetPosts: () => UseGetPostsReturn = () => {
       console.log('error');
     }
   }, []);
+
+  useEffect(() => {
+    getPosts();
+  }, [getPosts]);
 
   return {
     ...state,
