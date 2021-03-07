@@ -6,7 +6,7 @@ interface ReduxAction {
 }
 
 export interface ToastOptions {
-  type: ToastTypes;
+  type?: ToastTypes;
   text: string;
   id?: number;
 }

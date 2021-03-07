@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
 import { ToastOptions } from 'store/toast/reducer';
+import { TOAST_COLORS } from 'assets/colors';
 
 interface ContainerProps {
   color: string;
@@ -48,13 +49,13 @@ const Toast: React.FC<Props> = ({ toast }) => {
   const color = useMemo<string>(() => {
     switch (toast.type) {
       case 'danger':
-        return '#ff3d00';
+        return TOAST_COLORS.DANGER;
       case 'success':
-        return 'green';
+        return TOAST_COLORS.SUCCESS;
       case 'warning':
-        return 'yellow';
+        return TOAST_COLORS.WARNING;
       default:
-        return 'black';
+        return TOAST_COLORS.DEFAULT;
     }
   }, [toast.type]);
 
