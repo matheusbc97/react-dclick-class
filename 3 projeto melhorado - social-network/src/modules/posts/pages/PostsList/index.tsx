@@ -9,34 +9,22 @@ import PostDetailsModal, {
   PostDetailsModalHandles,
 } from './components/PostDetailsModal';
 import CreateNewPost from './components/CreateNewPost';
-import useGetPostsOnScrollToEnd from './hooks/useGetPostsOnScrollToEnd';
+import Content from './components/Content';
 
-import { Container, Content, Title, ListContainer } from './styles';
+import { Container, Title, ListContainer } from './styles';
 
 const PostsList: React.FC = () => {
   const modalRef = useRef<PostDetailsModalHandles>(null);
-  const divRef = useRef<HTMLDivElement>(null);
 
   const { loading, posts, getPosts, error, hasLoadedSomeTime } = useGetPosts();
   const createPost = useCreatePost();
 
-  const cantLoad = useMemo(() => loading || !!error, [loading, error]);
-
   const getPostsOnScroll = useCallback(() => {
+    const cantLoad = loading || !!error;
     if (cantLoad) return;
 
     getPosts();
-  }, [getPosts, cantLoad]);
-
-  const onScrollToEnd = useGetPostsOnScrollToEnd(
-    divRef,
-    getPostsOnScroll,
-    cantLoad,
-  );
-
-  useEffect(() => {
-    window.onscroll = onScrollToEnd;
-  }, [onScrollToEnd]);
+  }, [getPosts, loading, error]);
 
   useEffect(() => {
     getPosts();
@@ -60,7 +48,7 @@ const PostsList: React.FC = () => {
     }
 
     return (
-      <Content ref={divRef}>
+      <Content onScrollEnd={getPostsOnScroll}>
         <CreateNewPost onCreatePostClick={handleCreatePostClick} />
         <Title style={{ alignSelf: 'flex-start', marginBottom: '5px' }}>
           Lista de Posts
@@ -83,6 +71,7 @@ const PostsList: React.FC = () => {
     handlePostClick,
     handleCreatePostClick,
     hasLoadedSomeTime,
+    getPostsOnScroll,
   ]);
 
   return (

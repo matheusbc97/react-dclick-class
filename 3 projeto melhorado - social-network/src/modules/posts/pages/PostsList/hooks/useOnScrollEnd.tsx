@@ -3,9 +3,8 @@ import { useCallback } from 'react';
 
 const useGetPostsOnScrollToEnd: (
   divRef: React.RefObject<HTMLDivElement>,
-  getPosts: () => void,
-  cantLoad: boolean,
-) => () => void = (divRef, getPosts, cantLoad) => {
+  callback: () => void,
+) => () => void = (divRef, callback) => {
   const onScrollToEnd = useCallback(() => {
     const offsetHeight = divRef.current?.offsetHeight
       ? divRef.current?.offsetHeight
@@ -15,11 +14,9 @@ const useGetPostsOnScrollToEnd: (
       window.innerHeight + document.documentElement.scrollTop - HEADER_HEIGHT >
       offsetHeight - 300
     ) {
-      if (cantLoad) return;
-
-      getPosts();
+      callback();
     }
-  }, [getPosts, divRef, cantLoad]);
+  }, [callback, divRef]);
 
   return onScrollToEnd;
 };
